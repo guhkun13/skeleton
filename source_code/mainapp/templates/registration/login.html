@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="guhkun">
+
+  <title>Support Tools </title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'theme/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'theme/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="{% static 'theme/vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'theme/css/stylish-portfolio.min.css' %}" rel="stylesheet">
+  <style media="screen">
+  .error-message {
+    margin: 10px;
+    padding: 10px;
+    background-color: gainsboro;
+  }
+  </style>
+</head>
+
+<body id="page-top">
+
+  <!-- Header -->
+  <header class="masthead d-flex">
+    <div class="container text-center my-auto">
+      <h1 class="mb-1"> Tools #SKELETON </h1>
+      <div class="row" style="margin:20px; padding:10px">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+          <form class="form-inline" action="{% url 'mainapp:login' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" class="form-control" name="username" placeholder="username" style="margin:10px">
+            <input type="password" class="form-control" name="password" placeholder="password" style="margin:10px">
+            <input type="submit" class="btn btn-primary btn-lg" value="Masuk" style="margin:10px">
+          </form>
+          {% if msg_false %}
+          <div class="error-message">
+            <h4 > {{ msg_false }} </h4>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Footer -->
+   <footer class="footer text-center">
+  <div class="container">
+  <p class="text-muted small mb-0">Tools &copy; Guhkun - MakaraMas 2020 </p>
+  <p class="text-muted small mb-0"> <em>A Free Bootstrap Theme by Start Bootstrap </em> </p>
+  <a class="small" href="https://blackrockdigital.github.io/startbootstrap-stylish-portfolio/"> Link here </a>
+</div>
+</footer>
+
+<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'theme/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'theme/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="{% static 'theme/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="{% static 'theme/js/stylish-portfolio.min.js' %}"></script>
+
+</body>
+
+</html>

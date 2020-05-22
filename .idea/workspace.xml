@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="40bd044d-8619-4f55-b034-30e0598d0de1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/disposisi-surat/source_code/disposisi_surat/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/disposisi-surat/source_code/disposisi_surat/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disposisi-surat/source_code/mainapp/custom_commands/seeding_data_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/disposisi-surat/source_code/mainapp/custom_commands/seeding_data_script.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Pusilkom Univer</find>
+      <find>Naskah Disposisi - Keluar (Diproses)</find>
+      <find>total unit kerja</find>
+      <find>naskah disposisi -</find>
+      <find>Tambah Naskah Masuk</find>
+      <find>table</find>
+    </findStrings>
+    <dirStrings>
+      <dir>C:\Users\Safni\project\andieni\arsip-ui</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="736" />
+    <option name="height" value="1296" />
+  </component>
+  <component name="ProjectId" id="1UbzXSoJP1djlbQLVb7o4iv7XCG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <created>1575640121575</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575640121575</updated>
+      <workItem from="1575640123466" duration="9000" />
+    </task>
+    <servers />
+  </component>
+</project>
