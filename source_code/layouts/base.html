@@ -3,9 +3,9 @@
 <html lang="en">
 <head>
 
-  <!-- <meta charset="utf-8"> -->
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-  <!-- <meta name="description" content=""> -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
   <meta name="author" content="guhkun">
 
   <title>Tools</title>
@@ -15,8 +15,8 @@
   <link href="{% static 'theme/vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
   <link href="{% static 'theme/vendor/bootstrap/css/pagination.css' %}" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+  <!-- If you are using bootstrap: -->
+  <link rel="stylesheet" href="{% static 'datatable/css/datatable-bootstrap.min.css' %}" type="text/css" >
 
   <!-- Custom Fonts -->
   <link href="{% static 'theme/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -38,6 +38,10 @@
     padding: 5px;
   }
   </style>
+
+  {% block css %}
+
+  {% endblock css %}
 </head>
 
 <body>
@@ -72,11 +76,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-
-  <script src="{% static 'theme/vendor/jquery/jquery.min.js' %}"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type="text/javascript" src="{% static 'jquerydatatable/js/datatable.jquery.min.js' %}"></script>
+  <!-- Script -->
 
   <!-- datepicker -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -84,12 +84,20 @@
   <script src="{% static 'theme/vendor/jquery/jquery.min.js' %}"></script>
 
   <!-- datepicker -->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'theme/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- <script src="{% static 'theme/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script> -->
   <script src="{% static 'theme/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+  <!-- jquery datatable -->
+  <!-- JS files -->
+  <script type="text/javascript" src="{% static 'datatable/js/datatable.min.js' %}"></script>
+
+  <!-- Add the following if you want to use the jQuery wrapper (you still need datatable.min.js): -->
+  <!-- <script type="text/javascript" src="{% static 'datatable/js/jquery.min.js' %}"></script> -->
+  <script type="text/javascript" src="{% static 'datatable/js/datatable.jquery.min.js' %}"></script>
 
   <!-- Plugin JavaScript -->
   <script src="{% static 'theme/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
@@ -98,9 +106,8 @@
   <script src="{% static 'theme/js/stylish-portfolio.min.js' %}"></script>
 
   {% block js %}
-
-  {% endblock %}
-
+  
+  {% endblock js %}
 
 </body>
 

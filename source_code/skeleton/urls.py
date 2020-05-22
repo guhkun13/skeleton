@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from skeleton.settings import root_url as root_url
 
 from mainapp import urls
 
-
 urlpatterns = [
     path('', include(urls, namespace='mainapp')),
-    path('skeleton/admin/', admin.site.urls),
+    path(root_url+'/admin/', admin.site.urls),
 ]

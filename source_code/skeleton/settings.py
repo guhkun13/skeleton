@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+root_url = 'skeleton'
+remote_hostname = ''
 
 # Application definition
 
@@ -40,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'mainapp',
-    'switching',
 ]
 
 MIDDLEWARE = [
@@ -86,10 +87,10 @@ DATABASES = {
     },
      'switching': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '10.12.200.100',
-        'NAME': 'dev',
-        'USER': 'switching_btns',
-        'PASSWORD': 'sesuatubtns',
+        'NAME': 'btnsportal',
+        'USER': 'mapping_btns',
+        'PASSWORD': 'mapping_btns123',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -127,7 +128,6 @@ USE_THOUSAND_SEPARATOR = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_PATH = os.path.join(BASE_DIR, '../assets')
 STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 
@@ -136,10 +136,10 @@ LOGIN_REDIRECT_URL = '/index/'
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 
-if hostname == "host-ws1-dev-CYBER2-10-12-200-31":
-    STATIC_URL = '/skeleton/static/'
+if hostname == remote_hostname:
+    STATIC_URL = '/'+root_url+'/static/'
     LOGIN_REDIRECT_URL = '/skeleton/index/'
-    LOGIN_URL = '/skeleton/login/'
-    LOGOUT_URL = '/skeleton/logout/'
+    LOGIN_URL = '/'+root_url+'/login/'
+    LOGOUT_URL = '/'+root_url+'/logout/'
 
 STATICFILES_DIRS = (STATIC_PATH,)
