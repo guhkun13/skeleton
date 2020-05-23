@@ -1,12 +1,24 @@
-from django.shortcuts import render
+import json
+import socket
+from pprint import pprint
+
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout, get_user
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required, user_passes_test, login_required
 from django.contrib import auth, messages
 
+from django.views.generic import DetailView, View
+
 from .utils import *
+
+from mainapp.ajax_class.utils import *
+from django.core.serializers.json import DjangoJSONEncoder
+
+from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -37,22 +49,67 @@ def login(request):
         url = 'registration/login.html'
         return render(request, url)
 
-import socket
-from datetime import datetime
-
 @login_required()
 def dashboard(request):
-
-    context = {}
     html = 'mainapp/dashboard.html'
+    data = []
+
+    context = {
+        'app' : 'mainapp',
+        'data' : data,
+    }
     return render(request, html, context)
 
-@login_required()
-def delete_biller(request, pk):
-    try:
-        instance = Mapping.objects.using('switching').get(kode_biller=pk)
-        instance.delete()
-    except Exception as e:
-        raise e
+class AjaxDatatables(View):
 
-    return HttpResponseRedirect(reverse('mainapp:dashboard'))   
+    def post(self, request, model):
+        datas = self._process(request, model)
+        return HttpResponse(json.dumps(datas, cls=DjangoJSONEncoder), content_type='application/json')
+
+    def _process(self, request, model):
+        modelClass = get_model_class(model)
+
+        datatables = request.POST
+        params = process_params(datatables)
+
+        draw = params['draw']
+        start = params['start']
+        length = params['length']
+        search = params['search']
+        order_col_name = params['order_col_name']
+
+        # datas = get_data_by_model(model)
+        datas = modelClass.get_all_data()
+        records_total = datas.count()
+        records_filtered = records_total
+
+        if search:
+            datas = modelClass.filter_search(search)
+
+        datas = filter_specific_column(datas, datatables)
+        datas = datas.order_by(order_col_name)
+
+        records_total = datas.count()
+        records_filtered = records_total
+
+        object_list = process_paginator(datas, start, length)
+        data = modelClass.generate_data(object_list)
+
+        return {
+        	'draw': draw,
+        	'recordsTotal': records_total,
+        	'recordsFiltered': records_filtered,
+        	'data': data,
+        }
+
+
+# *********** CUSTOM VIEWS HERE ************* #
+@login_required()
+def log_inquiry(request):
+    model_name = 'log_inquiry'
+    context = {
+        'app':model_name,
+    }
+
+    html = "mainapp/"+model_name+"/index.html"
+    return render(request, html, context)

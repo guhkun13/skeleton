@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<style>
+  .dataTables_length select {
+    width: auto !important;
+    padding: 0px 10px !important;
+    display: inherit !important;
+  }
+
+  #main .section-data-tables .dataTables_wrapper .dataTables_length, #main .section-data-tables .dataTables_wrapper .dataTables_filter {
+    display: inherit !important;
+  }
+</style>
+{% endblock %}
+
+{% block breadcrumb %}
+<div class="col s12 m6 l6">
+  <h5 class="breadcrumbs-title"><span>Log Inquiry</span></h5>
+</div>
+<div class="col s12 m6 l6 right-align-md">
+  <ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="{% url 'mainapp:index' %}">Home</a></li>
+    <li class="breadcrumb-item active">Log Inquiry</li>
+  </ol>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="col s12">
+  <div class="container">
+    <div class="section section-data-tables">
+      <div class="row">
+        <div class="col s12 m12 l12">
+          <div id="button-trigger" class="card card card-default scrollspy">
+            <div class="card-content">
+              <div class="row">
+                <div class="col s12">
+                  <div class="table-responsive">
+                    <table id="myTable" class="display table" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th>Timestamp</th>
+                          <th>Kode Biller</th>
+                          <th>Kode Channel</th>
+                          <th>Nama Channel</th>
+                          <th>Nomor Pembayaran</th>
+                          <th>RC</th>
+                          <th>Message</th>
+                          <th>TS Respon</th>
+                          <th>Time Elapsed</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#myTable thead tr').clone(true).appendTo( '#myTable thead' );
+    $('#myTable thead tr:eq(1) th').each( function (i) {
+      var title = $(this).text();
+      $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+
+      $( 'input', this ).on( 'keyup change', function () {
+        if ( dtTable.column(i).search() !== this.value ) {
+          dtTable
+          .column(i)
+          .search( this.value )
+          .draw();
+        }
+      } );
+    } );
+
+    var dtTable = $('#myTable').DataTable( {
+      "orderCellsTop": true,
+      "fixedHeader": true,
+      "processing": true,
+      "serverSide": true,
+      "scrollX": true, //scroll horizontal
+      "ajax": {
+        "url": "{% url 'mainapp:ajax_datatables' 'log_inquiry' %}",
+        "type": "POST",
+        "data": {
+          "csrfmiddlewaretoken": "{{ csrf_token }}"
+        },
+      },
+      "columns": [
+      {
+        "data": "ts",
+        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+          $(nTd).html(oData.ts);
+        }
+
+      },
+      { "data": "kode_biller" },
+      { "data": "kode_channel" },
+      { "data": "nama_channel" },
+      { "data": "nomor_pembayaran" },
+      { "data": "rc" },
+      { "data": "catatan" },
+      { "data": "updated" },
+      { "data": "time_elapsed" },
+      ]
+    } );
+  } );
+</script>
+{% endblock %}

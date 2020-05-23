@@ -14,5 +14,9 @@ urlpatterns = [
     path(root_url+'/login/', views.login, name='login'),
     path(root_url+'/logout/', LogoutView.as_view(next_page='/'+root_url+'/login/'), name='logout'),
     path(root_url+'/dashboard/', views.dashboard, name="dashboard"),
-    path(root_url+'/delete_biller/<pk>/', views.delete_biller, name="delete_biller"),
+    path(root_url+'/ajax/datatables/<str:model>', views.AjaxDatatables.as_view(), name='ajax_datatables'),
+
+    # custom
+    path(root_url+'/log_inquiry/', views.log_inquiry, name="log_inquiry"),
+
 ]

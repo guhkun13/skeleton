@@ -1,84 +1,102 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
 
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta name="author" content="Guhkun">
+	<title>User Login | Bianglala </title>
+	<link rel="apple-touch-icon" href="{% static 'theme/materialize/app-assets/images/favicon/apple-touch-icon-152x152.png">
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'theme/materialize/app-assets/images/favicon/favicon-32x32.png">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- BEGIN: VENDOR CSS-->
+	<link rel="stylesheet" type="text/css" href="{% static 'theme/materialize/app-assets/vendors/vendors.min.css' %} ">
+	<!-- END: VENDOR CSS-->
+	<!-- BEGIN: Page Level CSS-->
+	<link rel="stylesheet" type="text/css" href="{% static 'theme/materialize/app-assets/css/themes/horizontal-menu-template/materialize.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'theme/materialize/app-assets/css/themes/horizontal-menu-template/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'theme/materialize/app-assets/css/layouts/style-horizontal.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'theme/materialize/app-assets/css/pages/login.css' %}">
+	<!-- END: Page Level CSS-->
+	<!-- BEGIN: Custom CSS-->
+	<link rel="stylesheet" type="text/css" href="{% static 'theme/materialize/app-assets/css/custom/custom.css' %}">
+	<!-- END: Custom CSS-->
+	<style media="screen">
+	.login-info{
+		text-align: center;
+		color: red;
+		border-radius: 10px;
+		background-color: white;
+		padding: 10px;
+	}
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="guhkun">
-
-  <title>Support Tools </title>
-
-  <!-- Bootstrap Core CSS -->
-  <link href="{% static 'theme/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-  <!-- Custom Fonts -->
-  <link href="{% static 'theme/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-  <link href="{% static 'theme/vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
-
-  <!-- Custom CSS -->
-  <link href="{% static 'theme/css/stylish-portfolio.min.css' %}" rel="stylesheet">
-  <style media="screen">
-  .error-message {
-    margin: 10px;
-    padding: 10px;
-    background-color: gainsboro;
-  }
-  </style>
+	</style>
 </head>
+<!-- END: Head-->
 
-<body id="page-top">
+<body class="horizontal-layout page-header-light horizontal-menu preload-transitions 1-column login-bg   blank-page blank-page" data-open="click" data-menu="horizontal-menu" data-col="1-column">
+	<div class="row">
+		<div class="col s12">
+			<div class="container">
+				<div id="login-page" class="row">
+					<div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-8">
+						<form class="login-form" method="POST" action="{% url 'mainapp:login' %}">
+							{% csrf_token %}
+							<div class="row">
+								<div class="input-field col s12">
+									<h5 class="ml-4">Sign in</h5>
+								</div>
+							</div>
+							<div class="row margin">
+								<div class="input-field col s12">
+									<i class="material-icons prefix pt-2">person_outline</i>
+									<input id="username" name="username" type="text">
+									<label for="username" class="center-align">Username</label>
+								</div>
+							</div>
+							<div class="row margin">
+								<div class="input-field col s12">
+									<i class="material-icons prefix pt-2">lock_outline</i>
+									<input id="password" name="password" type="password">
+									<label for="password">Password</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s12">
+									<button type="submit" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12"> Login </button>
+								</div>
+							</div>
+							<div class="row">
+								{% if msg_false %}
+								<div class="login-info">
+									<h4> {{ msg_false }} </h4>
+								</div>
+								{% endif %}
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="content-overlay"></div>
+		</div>
+	</div>
 
-  <!-- Header -->
-  <header class="masthead d-flex">
-    <div class="container text-center my-auto">
-      <h1 class="mb-1"> Tools #SKELETON </h1>
-      <div class="row" style="margin:20px; padding:10px">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-6">
-          <form class="form-inline" action="{% url 'mainapp:login' %}" method="POST">
-            {% csrf_token %}
-            <input type="text" class="form-control" name="username" placeholder="username" style="margin:10px">
-            <input type="password" class="form-control" name="password" placeholder="password" style="margin:10px">
-            <input type="submit" class="btn btn-primary btn-lg" value="Masuk" style="margin:10px">
-          </form>
-          {% if msg_false %}
-          <div class="error-message">
-            <h4 > {{ msg_false }} </h4>
-          </div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Footer -->
-   <footer class="footer text-center">
-  <div class="container">
-  <p class="text-muted small mb-0">Tools &copy; Guhkun - MakaraMas 2020 </p>
-  <p class="text-muted small mb-0"> <em>A Free Bootstrap Theme by Start Bootstrap </em> </p>
-  <a class="small" href="https://blackrockdigital.github.io/startbootstrap-stylish-portfolio/"> Link here </a>
-</div>
-</footer>
-
-<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-  <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Bootstrap core JavaScript -->
-<script src="{% static 'theme/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'theme/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-<!-- Plugin JavaScript -->
-<script src="{% static 'theme/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
-<!-- Custom scripts for this template -->
-<script src="{% static 'theme/js/stylish-portfolio.min.js' %}"></script>
-
+	<!-- BEGIN VENDOR JS-->
+	<script src="{% static 'theme/materialize/app-assets/js/vendors.min.js' %}"></script>
+	<!-- BEGIN VENDOR JS-->
+	<!-- BEGIN PAGE VENDOR JS-->
+	<!-- END PAGE VENDOR JS-->
+	<!-- BEGIN THEME  JS-->
+	<script src="{% static 'theme/materialize/app-assets/js/plugins.js' %}"></script>
+	<script src="{% static 'theme/materialize/app-assets/js/search.js' %}"></script>
+	<script src="{% static 'theme/materialize/app-assets/js/custom/custom-script.js' %}"></script>
+	<!-- END THEME  JS-->
+	<!-- BEGIN PAGE LEVEL JS-->
+	<!-- END PAGE LEVEL JS-->
 </body>
 
 </html>
