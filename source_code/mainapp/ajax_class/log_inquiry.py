@@ -7,7 +7,6 @@ def isotime(param):
 
 class LogInquiryClass:
 
-
     def get_all_data(self):
         return LogInquiry.objects.using('btnsportal').all()
 

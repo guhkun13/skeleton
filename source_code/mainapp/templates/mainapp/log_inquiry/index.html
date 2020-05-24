@@ -50,7 +50,7 @@
                           <th>RC</th>
                           <th>Message</th>
                           <th>TS Respon</th>
-                          <th>Time Elapsed</th>
+                          <th class="no-sort">Time Elapsed</th>
                         </tr>
                       </thead>
                     </table>
@@ -79,10 +79,15 @@
 
 <script>
   $(document).ready(function() {
+    var exclude_filter = ['Time Elapsed'];
+    var exclude_sort = '';
+
     $('#myTable thead tr').clone(true).appendTo( '#myTable thead' );
     $('#myTable thead tr:eq(1) th').each( function (i) {
       var title = $(this).text();
-      $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+      if (!exclude_filter.includes(title)){
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+      }
 
       $( 'input', this ).on( 'keyup change', function () {
         if ( dtTable.column(i).search() !== this.value ) {
@@ -92,7 +97,7 @@
           .draw();
         }
       } );
-    } );
+    });
 
     var dtTable = $('#myTable').DataTable( {
       "orderCellsTop": true,
@@ -107,13 +112,16 @@
           "csrfmiddlewaretoken": "{{ csrf_token }}"
         },
       },
+      "columnDefs": [ {
+        "targets"  : 'no-sort', // th class name
+        "orderable": false,
+      }],
       "columns": [
       {
         "data": "ts",
         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
           $(nTd).html(oData.ts);
         }
-
       },
       { "data": "kode_biller" },
       { "data": "kode_channel" },
@@ -122,7 +130,7 @@
       { "data": "rc" },
       { "data": "catatan" },
       { "data": "updated" },
-      { "data": "time_elapsed" },
+      { "data": "time_elapsed",},
       ]
     } );
   } );
