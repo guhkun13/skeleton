@@ -1,37 +1,44 @@
 from django.db.models import Q
-from mainapp.models import LogInquiry
+from mainapp.models import Payment
 
 def isotime(param):
     result = (str(param)).replace('T', ' ')
     return result
 
-class LogInquiryClass:
+class TrxClass:
 
     def get_all_data(self):
-        return LogInquiry.objects.using('btnsportal').all()
+        return Payment.objects.using('btnsportal').all()
 
     def filter_search(self, search):
-        return LogInquiry.objects.using('btnsportal').filter(
+        return Payment.objects.using('btnsportal').filter(
                 Q(ts__icontains=search)|
                 Q(kode_biller__icontains=search)|
                 Q(kode_channel__icontains=search)|
                 Q(nama_channel__icontains=search)|
+                Q(nama__icontains=search)|
                 Q(nomor_pembayaran__icontains=search)|
+                Q(nominal_bayar__icontains=search)|
+                Q(status_bayar__icontains=search)|
                 Q(rc__icontains=search)|
-                Q(catatan__icontains=search)
+                Q(catatan__icontains=search)|
+                Q(komentar__icontains=search)
             )
 
     def generate_data(self, object_list):
-
         data = [
             {
                 'ts': isotime(item.ts),
                 'kode_biller': item.kode_biller,
                 'kode_channel': item.kode_channel,
                 'nama_channel': item.nama_channel,
+                'nama': item.nama,
                 'nomor_pembayaran': item.nomor_pembayaran,
+                'nominal_bayar': item.nominal_bayar,
+                'status_bayar': item.status_bayar,
                 'rc': item.rc,
                 'catatan': item.catatan,
+                'komentar': item.komentar,
                 'updated': isotime(item.updated),
                 'time_elapsed': self.calculate_time_elapsed(item.updated, item.ts),
             } for item in object_list

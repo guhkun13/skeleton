@@ -2,17 +2,7 @@
 {% load static %}
 
 {% block css %}
-<style>
-  .dataTables_length select {
-    width: auto !important;
-    padding: 0px 10px !important;
-    display: inherit !important;
-  }
-
-  #main .section-data-tables .dataTables_wrapper .dataTables_length, #main .section-data-tables .dataTables_wrapper .dataTables_filter {
-    display: inherit !important;
-  }
-</style>
+<!-- custom css -->
 {% endblock %}
 
 {% block breadcrumb %}
@@ -20,15 +10,57 @@
 {% endblock %}
 
 {% block content %}
-<div class="col s12">
-  <div class="container">
-    <div class="section section-data-tables">
-      <div class="card">
-        <div class="card-content">
-          <p class="caption mb-0">
-            All Logs Here
-            <!-- Under Development -->
-          </p>
+<div id="card-stats" class="pt-0">
+  <div class="row">
+    <div class="col s12 m6 l6 xl3">
+      <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text animate fadeLeft">
+        <div class="padding-4">
+          <div class="row">
+            <div class="col s4 m4">
+              <i class="material-icons background-round mt-5"> perm_identity </i>
+              <p>Biller </p>
+            </div>
+            <div class="col s8 m8 right-align">
+              <h5 class="mb-0 white-text"> {{ data.count_biller_all }} </h5>
+              <p class="no-margin"> P2H : {{ data.total_biller_p2h }} </p>
+              <p class="no-margin"> H2H : {{ data.total_biller_h2h }} </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6 l6 xl3">
+      <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text animate fadeRight">
+        <div class="padding-4">
+          <div class="row">
+            <div class="col s4 m4">
+              <i class="material-icons background-round mt-5">timeline</i>
+              <p> Transaksi </p>
+            </div>
+            <div class="col s8 m8 right-align">
+              <h5 class="mb-0 white-text"> {{ data.percentage_trx_all_success }} % ({{data.total_trx_all}}) </h5>
+              <p class="no-margin"> Sukses : {{ data.total_trx_all_success }} </p>
+              <p class="no-margin"> Batal : {{ data.total_trx_all_canceled }} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6 l6 xl3">
+      <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text animate fadeRight">
+        <div class="padding-4">
+          <div class="row">
+            <div class="col s2 m2">
+              <i class="material-icons background-round mt-5">attach_money</i>
+              <p> Nominal</p>
+            </div>
+            <div class="col s10 m10 right-align">
+              <h5 class="mb-0 white-text"> Rp. {{ data.total_nominal_trx_all }} </h5>
+              <p class="no-margin"> Sukses : Rp. {{ data.total_nominal_trx_all_success }} </p>
+              <p class="no-margin"> Batal  : Rp. {{ data.total_nominal_trx_all_canceled }} </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

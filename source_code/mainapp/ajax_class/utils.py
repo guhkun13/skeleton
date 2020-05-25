@@ -1,12 +1,20 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from mainapp.ajax_class.log_inquiry import *
+from mainapp.ajax_class.log_inquiry import LogInquiryClass
+from mainapp.ajax_class.log_payment import LogPaymentClass
+from mainapp.ajax_class.log_reversal import LogReversalClass
+from mainapp.ajax_class.trx import TrxClass
 
 def get_model_class(model):
     if model == 'your_model_name':
         result = YourClassModel()
     elif model == 'log_inquiry':
         result = LogInquiryClass()
-
+    elif model == 'log_payment':
+        result = LogPaymentClass()
+    elif model == 'log_reversal':
+        result = LogReversalClass()
+    elif model == 'trx':
+        result = TrxClass()
 
     return result
 

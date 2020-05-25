@@ -1,17 +1,17 @@
 from django.db.models import Q
-from mainapp.models import LogInquiry
+from mainapp.models import LogPayment
 
 def isotime(param):
     result = (str(param)).replace('T', ' ')
     return result
 
-class LogInquiryClass:
+class LogPaymentClass:
 
     def get_all_data(self):
-        return LogInquiry.objects.using('btnsportal').all()
+        return LogPayment.objects.using('btnsportal').all()
 
     def filter_search(self, search):
-        return LogInquiry.objects.using('btnsportal').filter(
+        return LogPayment.objects.using('btnsportal').filter(
                 Q(ts__icontains=search)|
                 Q(kode_biller__icontains=search)|
                 Q(kode_channel__icontains=search)|

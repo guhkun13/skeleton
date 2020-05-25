@@ -1,17 +1,17 @@
 from django.db.models import Q
-from mainapp.models import LogInquiry
+from mainapp.models import LogReversal
 
 def isotime(param):
     result = (str(param)).replace('T', ' ')
     return result
 
-class LogInquiryClass:
+class LogReversalClass:
 
     def get_all_data(self):
-        return LogInquiry.objects.using('btnsportal').all()
+        return LogReversal.objects.using('btnsportal').all()
 
     def filter_search(self, search):
-        return LogInquiry.objects.using('btnsportal').filter(
+        return LogReversal.objects.using('btnsportal').filter(
                 Q(ts__icontains=search)|
                 Q(kode_biller__icontains=search)|
                 Q(kode_channel__icontains=search)|
@@ -32,8 +32,8 @@ class LogInquiryClass:
                 'nomor_pembayaran': item.nomor_pembayaran,
                 'rc': item.rc,
                 'catatan': item.catatan,
-                'updated': isotime(item.updated),
-                'time_elapsed': self.calculate_time_elapsed(item.updated, item.ts),
+                'updated': isotime(item.ts_resp),
+                'time_elapsed': self.calculate_time_elapsed(item.ts_resp, item.ts),
             } for item in object_list
         ]
 

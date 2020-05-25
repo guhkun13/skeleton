@@ -5,24 +5,14 @@
         <i class="material-icons">dashboard</i> <span> Dashboard </span>
       </a>
     </li>
-    <li {% if app == "log_inquiry" %} class="active" {% endif %}>
-      <a href="{% url 'mainapp:log_inquiry' %}">
-        <i class="material-icons">account_balance</i> <span> Log Inquiry </span>
+    <li {% if app == "log_general" %} class="active" {% endif %}>
+      <a href="{% url 'mainapp:log_general' %}">
+        <i class="material-icons">home</i> <span> Logs </span>
       </a>
     </li>
-    <li {% if app == "log_payment" %} class="active" {% endif %}>
-      <a href="">
-        <i class="material-icons">book</i> <span> Log Payment </span>
-      </a>
-    </li>
-    <li {% if app == "log_reversal" %} class="active" {% endif %}>
-      <a href="">
-        <i class="material-icons">description</i> <span> Log Reversal </span>
-      </a>
-    </li>
-    <li {% if app == "transaksi" %} class="active" {% endif %}>
-      <a href="">
-        <i class="material-icons">home</i> <span> Transaksi </span>
+    <li {% if app == "trx" %} class="active" {% endif %}>
+      <a href="{% url 'mainapp:trx' %}">
+        <i class="material-icons">account_balance</i> <span> Transaksi </span>
       </a>
     </li>
   </ul>

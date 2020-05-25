@@ -28,8 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-root_url = 'skeleton'
-remote_hostname = ''
+root_url = 'devliatlog'
+remote_hostname = 'host-ws1-dev-CYBER2-10-12-200-31'
+hostname = socket.gethostname()
 
 # Application definition
 
@@ -77,23 +78,37 @@ WSGI_APPLICATION = 'skeleton.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-hostname = socket.gethostname()
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-     'btnsportal': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'btnsportal',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+if hostname == remote_hostname:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        },
+         'btnsportal': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'HOST': '10.12.200.100',
+            'PORT': '5432',
+            'NAME': '10.12.200.100',
+            'USER': '10.12.200.100',
+            'PASSWORD': 'yooKi4gae[',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        },
+         'btnsportal': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'btnsportal',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation

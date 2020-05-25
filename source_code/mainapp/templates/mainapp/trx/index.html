@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<!-- css page -->
+{% endblock %}
+
+{% block breadcrumb %}
+<!-- breadcrumb -->
+{% endblock %}
+
+{% block content %}
+
+<div class="col s12">
+  <div class="container" >
+    <div class="section section-data-tables">
+      <div class="row">
+        <div class="col s12 m12 l12">
+          <div class="card card card-default scrollspy">
+            <div class="card-content">
+              <div class="table-responsive">
+                <table id="myTable" class="display table" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Kode Biller</th>
+                      <th>Channel </th>
+                      <th>Nama</th>
+                      <th>Nomor Pembayaran </th>
+                      <th>Nominal Bayar </th>
+                      <th>Status Bayar </th>
+                      <th>RC</th>
+                      <th>Message </th>
+                      <th>Komentar</th>
+                      <th class="no-sort">TS Respon</th>
+                      <th class="no-sort">Time Elapsed</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+  $(document).ready(function() {
+    var exclude_filter = ['Time Elapsed', 'TS Respon'];
+    var exclude_sort = '';
+
+    $('#myTable thead tr').clone(true).appendTo( '#myTable thead' );
+    $('#myTable thead tr:eq(1) th').each( function (i) {
+      var title = $(this).text();
+      if (!exclude_filter.includes(title)){
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+      }
+
+      $('input', this).on( 'keyup change', function () {
+        if ( dtTable.column(i).search() !== this.value ) {
+          dtTable
+          .column(i)
+          .search( this.value )
+          .draw();
+        }
+      } );
+    });
+
+    var dtTable = $('#myTable').DataTable( {
+      "orderCellsTop": true,
+      "fixedHeader": true,
+      "processing": true,
+      "serverSide": true,
+      "scrollX": true,
+
+      "ajax": {
+        "url": "{% url 'mainapp:ajax_datatables' modelSelected %}",
+        "type": "POST",
+        "data": {
+          "csrfmiddlewaretoken": "{{ csrf_token }}"
+        },
+      },
+      "columnDefs": [ {
+        "targets"  : 'no-sort', // th class name
+        "orderable": false,
+      }],
+      "columns": [
+      { "data": "ts"},
+      { "data": "kode_biller" },
+      { "data": "nama_channel" },
+      { "data": "nama" },
+      { "data": "nomor_pembayaran" },
+      { "data": "nominal_bayar" },
+      { "data": "status_bayar" },
+      { "data": "rc" },
+      { "data": "catatan" },
+      { "data": "komentar" },
+      { "data": "updated" },
+      { "data": "time_elapsed" },
+      ]
+    } );
+  } );
+</script>
+{% endblock %}

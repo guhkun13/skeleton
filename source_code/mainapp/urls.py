@@ -17,6 +17,7 @@ urlpatterns = [
     path(root_url+'/ajax/datatables/<str:model>', views.AjaxDatatables.as_view(), name='ajax_datatables'),
 
     # custom
-    path(root_url+'/log_inquiry/', views.log_inquiry, name="log_inquiry"),
+    path(root_url+'/log_general/', views.log_general, name="log_general"),
+    path(root_url+'/trx/', views.trx, name="trx"),
 
 ]

@@ -52,10 +52,10 @@ def login(request):
 @login_required()
 def dashboard(request):
     html = 'mainapp/dashboard.html'
-    data = []
+    data = get_data_dashboard()
 
     context = {
-        'app' : 'mainapp',
+        'app' : 'dashboard',
         'data' : data,
     }
     return render(request, html, context)
@@ -109,7 +109,38 @@ def log_inquiry(request):
     model_name = 'log_inquiry'
     context = {
         'app':model_name,
+        'selectedModel':'log_inquiry'
     }
+
+    html = "mainapp/"+model_name+"/index.html"
+    return render(request, html, context)
+
+@login_required()
+def log_general(request):
+    app_name = 'log_general'
+    model_selected = request.GET.get('model_name')
+    list_model_log = ['log_inquiry', 'log_payment', 'log_reversal']
+
+    if not model_selected in list_model_log:
+        model_selected = 'log_inquiry'
+
+    context = {
+        'app':app_name,
+        'modelSelected': model_selected
+    }
+
+    html = "mainapp/log/index.html"
+    return render(request, html, context)
+
+@login_required()
+def trx(request):
+    model_name = 'trx'
+    context = {
+        'app':model_name,
+        'modelSelected':'trx'
+    }
+
+    print(context)
 
     html = "mainapp/"+model_name+"/index.html"
     return render(request, html, context)
