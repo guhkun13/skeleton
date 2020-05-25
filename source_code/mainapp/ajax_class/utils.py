@@ -3,6 +3,7 @@ from mainapp.ajax_class.log_inquiry import LogInquiryClass
 from mainapp.ajax_class.log_payment import LogPaymentClass
 from mainapp.ajax_class.log_reversal import LogReversalClass
 from mainapp.ajax_class.trx import TrxClass
+from mainapp.ajax_class.mapping_biller import MappingBillerClass
 
 def get_model_class(model):
     if model == 'your_model_name':
@@ -15,6 +16,8 @@ def get_model_class(model):
         result = LogReversalClass()
     elif model == 'trx':
         result = TrxClass()
+    elif model == 'mapping_biller':
+        result = MappingBillerClass()
 
     return result
 

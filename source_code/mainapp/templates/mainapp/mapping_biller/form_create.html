@@ -1,0 +1,82 @@
+
+<div class="col s12 m12 l12">
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="msg {{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header cyan">
+        <i class="material-icons">add</i>  Tambah Biller
+      </div>
+      <div class="collapsible-body">
+        <!-- <div class="card card card-default scrollspy"> -->
+        <!-- <div class="card-content"> -->
+        <form action="{% url 'mainapp:create_biller' %}" method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col l6 s12">
+              <label> Kode (5 digit) </label>
+              <input name="kode" type="text" class="input-field" pattern=".{5}" required>
+            </div>
+            <div class="col l6 s12">
+              <label> Nama </label>
+              <input name="nama" type="text" class="input-field" required>
+            </div>
+            <div class="col l6 s12">
+              <label> Tipe Biller </label>
+              <select name="tipe_biller">
+                <option value="P2H"> P2H </option>
+                <option value="H2H"> H2H </option>
+              </select>
+            </div>
+
+            <div class="col l6 s12">
+              <label> Tipe Bayar </label>
+              <select name="tipe_bayar">
+                <option value=""> </option>
+                <option value="open"> Open Payment </option>
+                <option value="close"> Close Payment </option>
+              </select>
+            </div>
+
+            <div class="col l6 s12">
+              <label> URL Inquiry </label>
+              <input name="url_inquiry" type="url" class="input-field">
+            </div>
+            <div class="col l6 s12">
+              <label> URL Payment </label>
+              <input name="url_payment" type="url" class="input-field">
+            </div>
+            <div class="col l6 s12">
+              <label> URL Reversal </label>
+              <input name="url_reversal" type="url" class="input-field">
+            </div>
+
+            <div class="col l6 s12">
+              <label> Creator </label>
+              <input name="creator" type="text" class="input-field" required>
+            </div>
+
+            <div class="col l6 s12">
+              <label> Catatan </label>
+              <input name="catatan" type="text" class="input-field">
+            </div>
+
+            <div class="input-field col s12">
+              <button class="btn waves-effect waves-light submit" type="submit" name="action">
+                Submit <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </li>
+  </ul>
+</div>

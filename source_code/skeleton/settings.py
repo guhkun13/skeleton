@@ -92,7 +92,15 @@ if hostname == remote_hostname:
             'NAME': 'edupayment',
             'USER': 'edupayment',
             'PASSWORD': 'yooKi4gae[',
-        }
+        },
+        'switching': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'HOST': '10.12.200.100',
+           'NAME': 'dev',
+           'USER': 'switching_btns',
+           'PASSWORD': 'sesuatubtns',
+           'PORT': '5432',
+       }
     }
 else:
     DATABASES = {
@@ -107,7 +115,15 @@ else:
             'PASSWORD': 'postgres',
             'HOST': '127.0.0.1',
             'PORT': '5432',
-        }
+        },
+        'switching': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'HOST': 'localhost',
+           'NAME': 'switching',
+           'USER': 'mapping_btns',
+           'PASSWORD': 'mapping_btns',
+           'PORT': '5432',
+       }
     }
 
 
@@ -158,3 +174,13 @@ if hostname == remote_hostname:
     LOGOUT_URL = '/'+root_url+'/logout/'
 
 STATICFILES_DIRS = (STATIC_PATH,)
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'msg-info',
+    messages.INFO: 'msg-info',
+    messages.SUCCESS: 'msg-success',
+    messages.WARNING: 'msg-warning',
+    messages.ERROR: 'msg-error',
+}

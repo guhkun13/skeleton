@@ -12,7 +12,12 @@
     </li>
     <li {% if app == "trx" %} class="active" {% endif %}>
       <a href="{% url 'mainapp:trx' %}">
-        <i class="material-icons">account_balance</i> <span> Transaksi </span>
+        <i class="material-icons">attach_money</i> <span> Transaksi </span>
+      </a>
+    </li>
+    <li {% if app == "biller" %} class="active" {% endif %}>
+      <a href="{% url 'mainapp:biller' %}">
+        <i class="material-icons">account_balance</i> <span> Mapping Biller </span>
       </a>
     </li>
   </ul>

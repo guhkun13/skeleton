@@ -17,6 +17,7 @@ from .utils import *
 
 from mainapp.ajax_class.utils import *
 from django.core.serializers.json import DjangoJSONEncoder
+from skeleton.settings import root_url
 
 from datetime import datetime
 
@@ -140,7 +141,70 @@ def trx(request):
         'modelSelected':'trx'
     }
 
-    print(context)
+    html = "mainapp/"+model_name+"/index.html"
+    return render(request, html, context)
+
+@login_required()
+def biller(request):
+    model_name = 'mapping_biller'
+    context = {
+        'root_url':root_url,
+        'app':model_name,
+        'modelSelected':'mapping_biller'
+    }
 
     html = "mainapp/"+model_name+"/index.html"
     return render(request, html, context)
+
+@login_required()
+def create_biller(request):
+    _DEBUG	     = 10
+    _INFO	     = 20
+    _SUCCESS     = 25
+    _WARNING	 = 30
+    _ERROR	     = 40
+
+    if (request.POST):
+        tipe_biller     = request.POST.get('tipe_biller')
+        url_inquiry     = request.POST.get('url_inquiry')
+        url_payment     = request.POST.get('url_payment')
+        url_reversal    = request.POST.get('url_reversal')
+
+        if tipe_biller == 'H2H':
+            if url_inquiry == "" or url_payment == "" or url_reversal == "" :
+                msg = 'URL INQ/PAY/REV tidak boleh kosong untuk Tipe Biller H2H'
+
+                messages.add_message(request, _ERROR, msg)
+                return HttpResponseRedirect(reverse('mainapp:biller'))
+        try:
+            billerBaru = Mapping.objects.using('switching').create(
+                kode_biller     = request.POST.get('kode'),
+                nama_biller     = request.POST.get('nama'),
+                tipe_biller     = request.POST.get('tipe_biller'),
+                tipe_bayar      = request.POST.get('tipe_bayar'),
+                url_inquiry     = request.POST.get('url_inquiry'),
+                url_payment     = request.POST.get('url_payment'),
+                url_reversal    = request.POST.get('url_reversal'),
+                catatan         = request.POST.get('catatan'),
+                creator         = request.POST.get('creator'),
+                created_at      = datetime.now()
+            )
+
+            msg = "New biller has been born! :D"
+            messages.add_message(request, _INFO, msg)
+            return HttpResponseRedirect(reverse('mainapp:biller'))
+        except Exception as e:
+            raise e
+    else:
+        return HttpResponseRedirect(reverse('mainapp:biller'))
+
+@login_required()
+def delete_biller(request, pk):
+    print("pk = ", pk)
+    try:
+        instance = Mapping.objects.using('switching').get(kode_biller=pk)
+        instance.delete()
+    except Exception as e:
+        raise e
+
+    return HttpResponseRedirect(reverse('mainapp:biller'))
