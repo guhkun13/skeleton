@@ -89,8 +89,8 @@ if hostname == remote_hostname:
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'HOST': '10.12.200.100',
             'PORT': '5432',
-            'NAME': '10.12.200.100',
-            'USER': '10.12.200.100',
+            'NAME': 'edupayment',
+            'USER': 'edupayment',
             'PASSWORD': 'yooKi4gae[',
         }
     }

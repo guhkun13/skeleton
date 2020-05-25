@@ -5,7 +5,10 @@ from .models import *
 def get_data_dashboard():
 
     biller_all              = Biller.objects.using('btnsportal').all()
-    count_biller_all        = biller_all.count()
+    total_biller_all        = biller_all.count()
+    total_biller_p2h        = biller_all.filter(tipe_biller='P2H').count()
+    total_biller_h2h        = biller_all.filter(tipe_biller='H2H').count()
+
 
     # Trx
     trx_all                 = Payment.objects.using('btnsportal').all()
@@ -25,7 +28,10 @@ def get_data_dashboard():
     percentage_trx_all_success      = percentage(total_trx_all_success, total_trx_all)
 
     result = {
-        'count_biller_all'                  : count_biller_all,
+        'total_biller_all'                  : total_biller_all,
+        'total_biller_p2h'                  : total_biller_p2h,
+        'total_biller_h2h'                  : total_biller_h2h,
+
         'total_trx_all'                     : total_trx_all,
         'total_trx_all_success'             : total_trx_all_success,
         'total_trx_all_canceled'            : total_trx_all_canceled,

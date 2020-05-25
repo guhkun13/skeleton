@@ -62,6 +62,7 @@ class Biller(models.Model):
     penanggung_transaction_fee = models.CharField(max_length=10, blank=True, null=True)
     jenis_biller = models.CharField(max_length=10, blank=True, null=True)
     logo = models.CharField(max_length=255, blank=True, null=True)
+    tipe_biller = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -132,6 +133,7 @@ class LogBlastNotif(models.Model):
         managed = False
         db_table = 'log_blast_notif'
 
+
 class LogInquiry(models.Model):
     log_id = models.IntegerField(primary_key=True)
     ts = models.DateTimeField()
@@ -144,8 +146,8 @@ class LogInquiry(models.Model):
     tgl_trx_ca = models.CharField(max_length=30, blank=True, null=True)
     id_trx = models.CharField(max_length=50, blank=True, null=True)
     rc = models.CharField(max_length=2, blank=True, null=True)
-    catatan = models.CharField(max_length=255, blank=True, null=True)
     id_tagihan = models.CharField(max_length=100, blank=True, null=True)
+    catatan = models.CharField(max_length=255, blank=True, null=True)
     info_1 = models.CharField(max_length=255, blank=True, null=True)
     info_2 = models.CharField(max_length=255, blank=True, null=True)
     updated = models.DateTimeField(blank=True, null=True)
