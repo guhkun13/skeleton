@@ -4,7 +4,7 @@ from .models import *
 
 def get_data_dashboard():
 
-    biller_all              = Biller.objects.using('btnsportal').all()
+    biller_all              = Mapping.objects.using('switching').all()
     total_biller_all        = biller_all.count()
     total_biller_p2h        = biller_all.filter(tipe_biller='P2H').count()
     total_biller_h2h        = biller_all.filter(tipe_biller='H2H').count()
