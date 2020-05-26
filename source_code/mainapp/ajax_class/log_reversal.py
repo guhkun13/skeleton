@@ -8,10 +8,10 @@ def isotime(param):
 class LogReversalClass:
 
     def get_all_data(self):
-        return LogReversal.objects.using('btnsportal').all()
+        return LogReversal.objects.using('billing').all()
 
     def filter_search(self, search):
-        return LogReversal.objects.using('btnsportal').filter(
+        return LogReversal.objects.using('billing').filter(
                 Q(ts__icontains=search)|
                 Q(kode_biller__icontains=search)|
                 Q(kode_channel__icontains=search)|

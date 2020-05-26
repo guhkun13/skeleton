@@ -85,13 +85,13 @@ if hostname == remote_hostname:
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         },
-         'btnsportal': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'HOST': '10.12.200.100',
-            'PORT': '5432',
-            'NAME': 'edupayment',
-            'USER': 'edupayment',
-            'PASSWORD': 'yooKi4gae[',
+        'billing': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'HOST': '10.12.200.100',
+           'NAME': 'dev',
+           'USER': 'billing_btns',
+           'PASSWORD': 'billing_btns123',
+           'PORT': '5432',
         },
         'switching': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -108,13 +108,13 @@ else:
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         },
-         'btnsportal': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'btnsportal',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
+        'btnsportal': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': 'btnsportal',
+           'USER': 'postgres',
+           'PASSWORD': 'postgres',
+           'HOST': '127.0.0.1',
+           'PORT': '5432',
         },
         'switching': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',

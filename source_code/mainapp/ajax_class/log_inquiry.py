@@ -8,10 +8,10 @@ def isotime(param):
 class LogInquiryClass:
 
     def get_all_data(self):
-        return LogInquiry.objects.using('btnsportal').all()
+        return LogInquiry.objects.using('billing').all()
 
     def filter_search(self, search):
-        return LogInquiry.objects.using('btnsportal').filter(
+        return LogInquiry.objects.using('billing').filter(
                 Q(ts__icontains=search)|
                 Q(kode_biller__icontains=search)|
                 Q(kode_channel__icontains=search)|

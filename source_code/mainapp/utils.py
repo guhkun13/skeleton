@@ -11,7 +11,7 @@ def get_data_dashboard():
 
 
     # Trx
-    trx_all                 = Payment.objects.using('btnsportal').all()
+    trx_all                 = Payment.objects.using('billing').all()
     trx_all_success         = trx_all.filter(rc='00',status_bayar='1')
     total_trx_all           = trx_all.count()
     total_trx_all_success   = trx_all_success.count()

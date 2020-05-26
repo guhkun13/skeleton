@@ -8,10 +8,10 @@ def isotime(param):
 class LogPaymentClass:
 
     def get_all_data(self):
-        return LogPayment.objects.using('btnsportal').all()
+        return LogPayment.objects.using('billing').all()
 
     def filter_search(self, search):
-        return LogPayment.objects.using('btnsportal').filter(
+        return LogPayment.objects.using('billing').filter(
                 Q(ts__icontains=search)|
                 Q(kode_biller__icontains=search)|
                 Q(kode_channel__icontains=search)|

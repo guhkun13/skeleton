@@ -8,10 +8,10 @@ def isotime(param):
 class TrxClass:
 
     def get_all_data(self):
-        return Payment.objects.using('btnsportal').all()
+        return Payment.objects.using('billing').all()
 
     def filter_search(self, search):
-        return Payment.objects.using('btnsportal').filter(
+        return Payment.objects.using('billing').filter(
                 Q(ts__icontains=search)|
                 Q(kode_biller__icontains=search)|
                 Q(kode_channel__icontains=search)|
