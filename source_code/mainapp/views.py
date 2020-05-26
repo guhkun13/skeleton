@@ -21,6 +21,12 @@ from skeleton.settings import root_url
 
 from datetime import datetime
 
+_DEBUG	     = 10
+_INFO	     = 20
+_SUCCESS     = 25
+_WARNING	 = 30
+_ERROR	     = 40
+
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
@@ -158,11 +164,6 @@ def biller(request):
 
 @login_required()
 def create_biller(request):
-    _DEBUG	     = 10
-    _INFO	     = 20
-    _SUCCESS     = 25
-    _WARNING	 = 30
-    _ERROR	     = 40
 
     if (request.POST):
         tipe_biller     = request.POST.get('tipe_biller')
@@ -206,5 +207,59 @@ def delete_biller(request, pk):
         instance.delete()
     except Exception as e:
         raise e
+
+    return HttpResponseRedirect(reverse('mainapp:biller'))
+
+
+from csv import *
+import csv
+# guhkun
+@login_required()
+def upload_csv_biller(request):
+    print ("request.POST => ", request.POST)
+    print ("request.FILES => ", request.FILES)
+
+    upload_file = request.FILES['upload_file']
+    print("upload_file => ", upload_file)
+
+    data_set = upload_file.read().decode('UTF-8').splitlines()
+    # print("data_set => ", data_set)
+
+    cnt_berhasil = 0
+    msg = ""
+    msg_gagal = ""
+    reader = csv.reader(data_set)
+
+    firstline = True
+    for row in reader:
+        if firstline:    #skip first line
+            firstline = False
+            continue
+
+        # print ("id => ", row[0], "| name => ", row[1], " | created => ", row[3], '| tipe_biller => ', row[-1])
+        try:
+            get_object_or_404(Mapping.objects.using('switching'), kode_biller=row[0])
+            msg_gagal = 'Failed biller [' + row[0] + '] already existed'
+            messages.add_message(request, _WARNING, msg_gagal)
+        except Exception as e:
+            try:
+                new_biller = Mapping()
+                new_biller.kode_biller  = row[0]
+                new_biller.nama_biller  = row[1]
+                new_biller.tipe_biller  = row[-1]
+                new_biller.created_at   = row[3]
+                new_biller.creator      = "Ubay"
+                new_biller.save(using='switching')
+
+                cnt_berhasil+=1
+
+                msg_berhasil = 'Success create biller [' + str(row[0])
+            except Exception as e:
+                msg_gagal = 'Failed create biller [' + row[0] + ']. Error: ' + str(e)
+                messages.add_message(request, _ERROR, msg_gagal)
+
+    msg_berhasil = 'Success create ' + str(cnt_berhasil) + ' biller'
+    messages.add_message(request, _INFO, msg_berhasil)
+
 
     return HttpResponseRedirect(reverse('mainapp:biller'))

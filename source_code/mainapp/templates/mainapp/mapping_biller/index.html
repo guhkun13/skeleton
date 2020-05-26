@@ -17,7 +17,7 @@
     background-color: #ef5350;
     color: white;
   }
-  .msg-alert {
+  .msg-warning {
     border-color: #ef6c00;
     background-color: #ff9800;
     color: white;
@@ -38,7 +38,22 @@
 
 {% block content %}
 
-{% include 'mainapp/mapping_biller/form_create.html' %}
+<div class="col s12 m12 l12">
+
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="msg {{ message.tags }}"{% endif %}> {{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+
+  {% include 'mainapp/mapping_biller/form_create.html' %}
+  {% include 'mainapp/mapping_biller/upload_csv_biller.html' %}
+
+
+</div>
 
 <div class="section section-data-tables">
   <div class="col s12 m12 l12">
@@ -113,6 +128,7 @@
         "targets"  : 'no-sort', // th class name
         "orderable": false,
       }],
+      "order": [[ 0, "desc" ]],
       "columns": [
       { "data": "created_at"},
       { "data": "kode_biller" },

@@ -1,0 +1,25 @@
+<ul class="collapsible">
+  <li>
+    <div class="collapsible-header cyan">
+      <i class="material-icons">add</i>  Upload File CSV Biller
+    </div>
+    <div class="collapsible-body">
+      <form action="{% url 'mainapp:upload_csv_biller' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+
+          <div class="col l6 s12">
+            <label> File CSV </label>
+            <input name="upload_file" type="file" class="input-field">
+          </div>
+
+          <div class="input-field col s12">
+            <button class="btn waves-effect waves-light submit" type="submit" name="action">
+              Submit <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </li>
+</ul>

@@ -21,6 +21,7 @@ urlpatterns = [
     path(root_url+'/trx/', views.trx, name="trx"),
     path(root_url+'/biller/', views.biller, name="biller"),
     path(root_url+'/create_biller/', views.create_biller, name="create_biller"),
+    path(root_url+'/upload_csv_biller/', views.upload_csv_biller, name="upload_csv_biller"),
     path(root_url+'/delete_biller/<str:pk>', views.delete_biller, name="delete_biller"),
 
 ]
