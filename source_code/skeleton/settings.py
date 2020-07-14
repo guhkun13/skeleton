@@ -90,7 +90,7 @@ if hostname == remote_hostname:
            'HOST': '10.12.200.100',
            'NAME': 'dev',
            'USER': 'billing_btns',
-           'PASSWORD': 'billing_btns123',
+           'PASSWORD': 'billing_btns_dev',
            'PORT': '5432',
         },
         'switching': {

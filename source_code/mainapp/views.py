@@ -151,6 +151,17 @@ def trx(request):
     return render(request, html, context)
 
 @login_required()
+def rekon(request):
+    model_name = 'rekon'
+    context = {
+        'app':model_name,
+        'modelSelected':'rekon'
+    }
+
+    html = "mainapp/"+model_name+"/index.html"
+    return render(request, html, context)
+
+@login_required()
 def biller(request):
     model_name = 'mapping_biller'
     context = {

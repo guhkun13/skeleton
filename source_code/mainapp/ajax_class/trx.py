@@ -13,6 +13,7 @@ class TrxClass:
     def filter_search(self, search):
         return Payment.objects.using('billing').filter(
                 Q(ts__icontains=search)|
+                Q(no_jurnal__icontains=search)|
                 Q(kode_biller__icontains=search)|
                 Q(kode_channel__icontains=search)|
                 Q(nama_channel__icontains=search)|
@@ -32,6 +33,7 @@ class TrxClass:
                 'kode_biller': item.kode_biller,
                 'kode_channel': item.kode_channel,
                 'nama_channel': item.nama_channel,
+                'no_jurnal': item.no_jurnal,
                 'nama': item.nama,
                 'nomor_pembayaran': item.nomor_pembayaran,
                 'nominal_bayar': item.nominal_bayar,

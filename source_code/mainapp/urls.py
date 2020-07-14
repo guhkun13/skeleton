@@ -19,6 +19,7 @@ urlpatterns = [
     # custom
     path(root_url+'/log_general/', views.log_general, name="log_general"),
     path(root_url+'/trx/', views.trx, name="trx"),
+    path(root_url+'/rekon/', views.rekon, name="rekon"),
     path(root_url+'/biller/', views.biller, name="biller"),
     path(root_url+'/create_biller/', views.create_biller, name="create_biller"),
     path(root_url+'/upload_csv_biller/', views.upload_csv_biller, name="upload_csv_biller"),

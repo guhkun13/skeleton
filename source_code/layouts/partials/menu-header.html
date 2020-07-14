@@ -15,6 +15,11 @@
         <i class="material-icons">attach_money</i> <span> Transaksi </span>
       </a>
     </li>
+    <li {% if app == "rekon" %} class="active" {% endif %}>
+      <a href="{% url 'mainapp:rekon' %}">
+        <i class="material-icons">attach_money</i> <span> Rekon </span>
+      </a>
+    </li>
     <li {% if app == "mapping_biller" %} class="active" {% endif %}>
       <a href="{% url 'mainapp:biller' %}">
         <i class="material-icons">account_balance</i> <span> Mapping Biller </span>
