@@ -4781,3 +4781,155 @@ Watching for file changes with StatReloader
 [14/Jul/2020 23:36:29] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/css/images/sort_both.png HTTP/1.1" 200 1137
 [14/Jul/2020 23:36:29] "POST /devliatlog/ajax/datatables/rekon HTTP/1.1" 200 3505
 [14/Jul/2020 23:36:29] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/css/images/sort_desc.png HTTP/1.1" 200 1069
+/home/web2/devliatlog/src/source_code/skeleton/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 2 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): mainapp.
+Run 'python manage.py migrate' to apply them.
+July 13, 2020 - 01:01:13
+Django version 2.2.11, using settings 'skeleton.settings'
+Starting development server at http://0.0.0.0:8090/
+Quit the server with CONTROL-C.
+user is not None, go to index
+Watching for file changes with StatReloader
+/home/web2/devliatlog/src/source_code/skeleton/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 2 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): mainapp.
+Run 'python manage.py migrate' to apply them.
+July 14, 2020 - 23:42:32
+Django version 2.2.11, using settings 'skeleton.settings'
+Starting development server at http://0.0.0.0:8090/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+/home/web2/devliatlog/src/source_code/skeleton/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 2 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): mainapp.
+Run 'python manage.py migrate' to apply them.
+July 14, 2020 - 23:42:52
+Django version 2.2.11, using settings 'skeleton.settings'
+Starting development server at http://0.0.0.0:8090/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+/home/web2/devliatlog/src/source_code/skeleton/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 2 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): mainapp.
+Run 'python manage.py migrate' to apply them.
+July 14, 2020 - 23:43:16
+Django version 2.2.11, using settings 'skeleton.settings'
+Starting development server at http://0.0.0.0:8090/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+/home/web2/devliatlog/src/source_code/skeleton/settings.py changed, reloading.
+/home/web2/devliatlog/src/source_code/skeleton
+['', 'home', 'web2', 'devliatlog', 'src', 'source_code', 'skeleton']
+devliatlog
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 2 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): mainapp.
+Run 'python manage.py migrate' to apply them.
+July 14, 2020 - 23:50:22
+Django version 2.2.11, using settings 'skeleton.settings'
+Starting development server at http://0.0.0.0:8090/
+Quit the server with CONTROL-C.
+Traceback (most recent call last):
+  File "manage.py", line 21, in <module>
+    main()
+  File "manage.py", line 17, in main
+    execute_from_command_line(sys.argv)
+  File "/home/web2/devliatlog/venv/lib/python3.5/site-packages/django/core/management/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/home/web2/devliatlog/venv/lib/python3.5/site-packages/django/core/management/__init__.py", line 325, in execute
+    settings.INSTALLED_APPS
+  File "/home/web2/devliatlog/venv/lib/python3.5/site-packages/django/conf/__init__.py", line 79, in __getattr__
+    self._setup(name)
+  File "/home/web2/devliatlog/venv/lib/python3.5/site-packages/django/conf/__init__.py", line 66, in _setup
+    self._wrapped = Settings(settings_module)
+  File "/home/web2/devliatlog/venv/lib/python3.5/site-packages/django/conf/__init__.py", line 157, in __init__
+    mod = importlib.import_module(self.SETTINGS_MODULE)
+  File "/home/web2/devliatlog/venv/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 958, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 669, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 775, in get_code
+  File "<frozen importlib._bootstrap_external>", line 735, in source_to_code
+  File "<frozen importlib._bootstrap>", line 222, in _call_with_frames_removed
+  File "/home/web2/devliatlog/src/source_code/skeleton/settings.py", line 36
+    root_url = 'devliatlog'
+           ^
+SyntaxError: invalid syntax
+Watching for file changes with StatReloader
+[15/Jul/2020 00:02:59] "GET /devliatlog/rekon/ HTTP/1.1" 200 12806
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/css/pages/dashboard.css HTTP/1.1" 200 757
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/css/layouts/style-horizontal.css HTTP/1.1" 200 3652
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/vendors/vendors.min.css HTTP/1.1" 200 48603
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/css/themes/horizontal-menu-template/materialize.css HTTP/1.1" 200 189596
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/css/themes/horizontal-menu-template/style.css HTTP/1.1" 200 176061
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/css/pages/data-tables.css HTTP/1.1" 200 6031
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/vendors/flag-icon/css/flag-icon.min.css HTTP/1.1" 200 33818
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css HTTP/1.1" 200 3982
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/css/select.dataTables.min.css HTTP/1.1" 200 4019
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/css/custom/custom.css HTTP/1.1" 200 522
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/css/jquery.dataTables.min.css HTTP/1.1" 200 13941
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/vendors/chartjs/chart.min.js HTTP/1.1" 200 156720
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/js/vendors.min.js HTTP/1.1" 200 354026
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js HTTP/1.1" 200 13031
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/js/dataTables.select.min.js HTTP/1.1" 200 12085
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/js/jquery.dataTables.min.js HTTP/1.1" 200 83885
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/js/plugins.js HTTP/1.1" 200 19321
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/images/custom/laptop.png HTTP/1.1" 200 14790
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/js/search.js HTTP/1.1" 200 8729
+[15/Jul/2020 00:02:59] "GET /devliatlog/static/theme/materialize/app-assets/fonts/material-design-icons/MaterialIcons-Regular.ttf HTTP/1.1" 200 128180
+[15/Jul/2020 00:03:00] "GET /devliatlog/static/theme/materialize/app-assets/js/custom/custom-script.js HTTP/1.1" 200 478
+[15/Jul/2020 00:03:00] "GET /devliatlog/static/theme/materialize/app-assets/js/scripts/data-tables.js HTTP/1.1" 200 2882
+[15/Jul/2020 00:03:00] "GET /devliatlog/static/theme/materialize/app-assets/js/scripts/dashboard-ecommerce.js HTTP/1.1" 200 11964
+[15/Jul/2020 00:03:00] "GET /devliatlog/static/theme/materialize/app-assets/js/scripts/form-validation.js HTTP/1.1" 200 1246
+[15/Jul/2020 00:03:00] "GET /devliatlog/static/theme/materialize/app-assets/vendors/jquery-validation/jquery.validate.min.js HTTP/1.1" 200 24376
+[15/Jul/2020 00:03:00] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/css/images/sort_both.png HTTP/1.1" 200 1137
+[15/Jul/2020 00:03:00] "POST /devliatlog/ajax/datatables/rekon HTTP/1.1" 200 3505
+[15/Jul/2020 00:03:10] "GET /devliatlog/biller/ HTTP/1.1" 200 17187
+[15/Jul/2020 00:03:10] "POST /devliatlog/ajax/datatables/mapping_biller HTTP/1.1" 200 2795
+[15/Jul/2020 00:03:26] "GET /devliatlog/biller/ HTTP/1.1" 200 17187
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/vendors/vendors.min.css HTTP/1.1" 200 48603
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/css/themes/horizontal-menu-template/materialize.css HTTP/1.1" 200 189596
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/css/layouts/style-horizontal.css HTTP/1.1" 200 3652
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/css/themes/horizontal-menu-template/style.css HTTP/1.1" 200 176061
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/css/pages/dashboard.css HTTP/1.1" 200 757
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/vendors/flag-icon/css/flag-icon.min.css HTTP/1.1" 200 33818
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/css/pages/data-tables.css HTTP/1.1" 200 6031
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css HTTP/1.1" 200 3982
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/css/jquery.dataTables.min.css HTTP/1.1" 200 13941
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/css/select.dataTables.min.css HTTP/1.1" 200 4019
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/css/custom/custom.css HTTP/1.1" 200 522
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/js/jquery.dataTables.min.js HTTP/1.1" 200 83885
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/vendors/chartjs/chart.min.js HTTP/1.1" 200 156720
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/js/vendors.min.js HTTP/1.1" 200 354026
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js HTTP/1.1" 200 13031
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/js/plugins.js HTTP/1.1" 200 19321
+[15/Jul/2020 00:03:26] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/js/dataTables.select.min.js HTTP/1.1" 200 12085
+[15/Jul/2020 00:03:27] "GET /devliatlog/static/theme/materialize/app-assets/images/custom/laptop.png HTTP/1.1" 200 14790
+[15/Jul/2020 00:03:27] "GET /devliatlog/static/theme/materialize/app-assets/fonts/material-design-icons/MaterialIcons-Regular.ttf HTTP/1.1" 200 128180
+[15/Jul/2020 00:03:27] "GET /devliatlog/static/theme/materialize/app-assets/js/search.js HTTP/1.1" 200 8729
+[15/Jul/2020 00:03:27] "GET /devliatlog/static/theme/materialize/app-assets/js/custom/custom-script.js HTTP/1.1" 200 478
+[15/Jul/2020 00:03:27] "GET /devliatlog/static/theme/materialize/app-assets/js/scripts/data-tables.js HTTP/1.1" 200 2882
+[15/Jul/2020 00:03:27] "GET /devliatlog/static/theme/materialize/app-assets/js/scripts/dashboard-ecommerce.js HTTP/1.1" 200 11964
+[15/Jul/2020 00:03:27] "GET /devliatlog/static/theme/materialize/app-assets/vendors/jquery-validation/jquery.validate.min.js HTTP/1.1" 200 24376
+[15/Jul/2020 00:03:27] "GET /devliatlog/static/theme/materialize/app-assets/js/scripts/form-validation.js HTTP/1.1" 200 1246
+[15/Jul/2020 00:03:27] "GET /devliatlog/static/theme/materialize/app-assets/vendors/data-tables/css/images/sort_both.png HTTP/1.1" 200 1137
+[15/Jul/2020 00:03:27] "POST /devliatlog/ajax/datatables/mapping_biller HTTP/1.1" 200 2795
+Watching for file changes with StatReloader

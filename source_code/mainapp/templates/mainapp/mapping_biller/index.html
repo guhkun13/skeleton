@@ -143,7 +143,7 @@
       {
         "data": null,
         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-          var url = "/devliatlog/delete_biller/"+oData.kode_biller;
+          var url = "/{{root_url}}/delete_biller/"+oData.kode_biller;
           $(nTd).html("<a href='"+url+"' onclick='return confirmDelete()' > <i class='material-icons red-text'>delete</i> </a>");
         },
       },

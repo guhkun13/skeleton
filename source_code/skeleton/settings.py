@@ -27,10 +27,15 @@ SECRET_KEY = 'au=5ciq2l$gsft%o9lz&necik#yd5d#7-nmkw9w@#s0z&6ek_1'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+import os
 
-root_url = 'devliatlog'
-remote_hostname = 'host-ws1-dev-CYBER2-10-12-200-31'
+DIR = os.path.dirname(os.path.abspath(__file__))
+paths = DIR.split('/')
+env_dir = paths[3]
+
 hostname = socket.gethostname()
+root_url = env_dir
+remote_hostname = 'host-ws1-dev-CYBER2-10-12-200-31'
 
 # Application definition
 
@@ -79,7 +84,7 @@ WSGI_APPLICATION = 'skeleton.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if hostname == remote_hostname:
+if root_url == 'devliatlog':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -99,6 +104,29 @@ if hostname == remote_hostname:
            'NAME': 'dev',
            'USER': 'switching_btns',
            'PASSWORD': 'sesuatubtns',
+           'PORT': '5432',
+       }
+    }
+elif root_url == 'liatlog':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        },
+        'billing': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'HOST': '10.12.100.100',
+           'NAME': 'prod',
+           'USER': 'billing_btns',
+           'PASSWORD': 'billing_btns_prod',
+           'PORT': '5432',
+        },
+        'switching': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'HOST': '10.12.100.100',
+           'NAME': 'prod',
+           'USER': 'switching_btns',
+           'PASSWORD': 'switching_btns_prod',
            'PORT': '5432',
        }
     }
