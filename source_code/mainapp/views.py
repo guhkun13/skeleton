@@ -295,7 +295,7 @@ def upload_csv_biller(request):
     print("upload_file => ", upload_file)
 
     data_set = upload_file.read().decode('UTF-8').splitlines()
-    # print("data_set => ", data_set)
+    print("data_set => ", data_set)
 
     cnt_berhasil = 0
     msg = ""
@@ -304,11 +304,11 @@ def upload_csv_biller(request):
 
     firstline = True
     for row in reader:
+        
         if firstline:    #skip first line
             firstline = False
             continue
-
-        # print ("id => ", row[0], "| name => ", row[1], " | created => ", row[3], '| tipe_biller => ', row[-1])
+        
         try:
             get_object_or_404(Mapping.objects.using('switching'), kode_biller=row[0])
             msg_gagal = 'Failed biller [' + row[0] + '] already existed'
@@ -318,9 +318,14 @@ def upload_csv_biller(request):
                 new_biller = Mapping()
                 new_biller.kode_biller  = row[0]
                 new_biller.nama_biller  = row[1]
-                new_biller.tipe_biller  = row[-1]
-                new_biller.created_at   = row[3]
-                new_biller.creator      = "Ubay"
+                new_biller.tipe_biller  = row[2]
+                new_biller.tipe_bayar   = row[3]
+                new_biller.url_inquiry  = row[4]
+                new_biller.url_payment  = row[5]
+                new_biller.url_reversal = row[6]
+                new_biller.catatan      = row[7]                
+                new_biller.creator      = row[8]
+                new_biller.created_at   = datetime.now()
                 new_biller.save(using='switching')
 
                 cnt_berhasil+=1

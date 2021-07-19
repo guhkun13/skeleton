@@ -1,3 +1,4 @@
+{% load static %}
 <ul class="collapsible">
   <li>
     <div class="collapsible-header cyan">
@@ -8,14 +9,28 @@
         {% csrf_token %}
         <div class="row">
 
-          <div class="col l6 s12">
+          <div class="col m12">
             <label> File CSV </label>
             <input name="upload_file" type="file" class="input-field">
           </div>
-
+          <div class="col m12">
+          <p>
+          Format CSV (Comma Separated Value): 
+          <table class="table" style="border:1px solid black">
+          <tr>
+          <td> kode biller , nama biller , tipe biller , tipe bayar , url inquiry , url payment , url reversal , catatan , creator </td>
+          </tr>
+          <tr>
+          <td> <a href="{% static 'contoh.csv' %}" download class="btn green waves-light"> 
+            <i class="material-icons right">get_app</i>Unduh Contoh
+          </td>
+          </tr>          
+          </table>        
+          </p>
+          </div>
           <div class="input-field col s12">
             <button class="btn waves-effect waves-light submit" type="submit" name="action">
-              Submit <i class="material-icons right">send</i>
+              <i class="material-icons right">send</i>Submit 
             </button>
           </div>
         </div>

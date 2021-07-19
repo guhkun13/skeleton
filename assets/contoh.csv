@@ -1,0 +1,3 @@
+kode biller , nama biller , tipe biller , tipe bayar , url inquiry , url payment , url reversal , catatan , creator
+54321, biller H2H, H2H,open,http://url-inquiry,http://url-payment,http://url-reversal,ini catatan,robot
+12345, biller P2h, P2H,close,,,,ini catatan,robot
