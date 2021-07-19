@@ -85,6 +85,7 @@ class AjaxDatatables(View):
         search = params['search']
         order_col_name = params['order_col_name']
 
+        print('modelsClass = ' , modelClass)
         # datas = get_data_by_model(model)
         datas = modelClass.get_all_data()
         records_total = datas.count()
@@ -174,7 +175,7 @@ def biller(request):
     return render(request, html, context)
 
 @login_required()
-def create_biller(request):
+def create_or_update_biller(request):
 
     if (request.POST):
         tipe_biller     = request.POST.get('tipe_biller')
@@ -188,25 +189,47 @@ def create_biller(request):
 
                 messages.add_message(request, _ERROR, msg)
                 return HttpResponseRedirect(reverse('mainapp:biller'))
-        try:
-            billerBaru = Mapping.objects.using('switching').create(
-                kode_biller     = request.POST.get('kode'),
-                nama_biller     = request.POST.get('nama'),
-                tipe_biller     = request.POST.get('tipe_biller'),
-                tipe_bayar      = request.POST.get('tipe_bayar'),
-                url_inquiry     = request.POST.get('url_inquiry'),
-                url_payment     = request.POST.get('url_payment'),
-                url_reversal    = request.POST.get('url_reversal'),
-                catatan         = request.POST.get('catatan'),
-                creator         = request.POST.get('creator'),
-                created_at      = datetime.now()
-            )
+        if request.POST.get('update_biller'):
+            # update existing biller
+            try:
 
-            msg = "New biller has been born! :D"
-            messages.add_message(request, _INFO, msg)
-            return HttpResponseRedirect(reverse('mainapp:biller'))
-        except Exception as e:
-            raise e
+                billerExist = Mapping.objects.using('switching').get(kode_biller=request.POST.get('kode'))
+                billerExist.kode_biller     = request.POST.get('kode')
+                billerExist.nama_biller     = request.POST.get('nama')
+                billerExist.tipe_biller     = request.POST.get('tipe_biller')
+                billerExist.tipe_bayar      = request.POST.get('tipe_bayar')
+                billerExist.url_inquiry     = request.POST.get('url_inquiry')
+                billerExist.url_payment     = request.POST.get('url_payment')
+                billerExist.url_reversal    = request.POST.get('url_reversal')
+                billerExist.catatan         = request.POST.get('catatan')
+                billerExist.updated_at      = datetime.now()
+                billerExist.save()
+
+                msg = "Existing biller:" + billerExist.kode_biller +"/" + billerExist.nama_biller +" has been updated! :D"
+                messages.add_message(request, _INFO, msg)
+                return HttpResponseRedirect(reverse('mainapp:biller'))
+            except Exception as e:
+                raise e
+        else:
+            try:
+                billerBaru = Mapping.objects.using('switching').create(
+                    kode_biller     = request.POST.get('kode'),
+                    nama_biller     = request.POST.get('nama'),
+                    tipe_biller     = request.POST.get('tipe_biller'),
+                    tipe_bayar      = request.POST.get('tipe_bayar'),
+                    url_inquiry     = request.POST.get('url_inquiry'),
+                    url_payment     = request.POST.get('url_payment'),
+                    url_reversal    = request.POST.get('url_reversal'),
+                    catatan         = request.POST.get('catatan'),
+                    creator         = request.POST.get('creator'),
+                    created_at      = datetime.now()
+                )
+
+                msg = "New biller has been born! :D"
+                messages.add_message(request, _INFO, msg)
+                return HttpResponseRedirect(reverse('mainapp:biller'))
+            except Exception as e:
+                raise e
     else:
         return HttpResponseRedirect(reverse('mainapp:biller'))
 
@@ -216,6 +239,44 @@ def delete_biller(request, pk):
     try:
         instance = Mapping.objects.using('switching').get(kode_biller=pk)
         instance.delete()
+    except Exception as e:
+        raise e
+
+    return HttpResponseRedirect(reverse('mainapp:biller'))
+
+@login_required()
+def edit_biller(request, pk):
+    model_name = 'mapping_biller';
+    print("pk = ", pk)
+    try:
+        instance = Mapping.objects.using('switching').get(kode_biller=pk)
+        # print(instance)
+
+        if instance.url_inquiry is None:
+           instance.url_inquiry = '' 
+        
+        if instance.url_payment is None:
+               instance.url_payment = '' 
+        
+        if instance.url_reversal is None:
+               instance.url_reversal = '' 
+
+        if instance.creator is None:
+               instance.creator = '' 
+        
+        if instance.catatan is None:
+               instance.catatan = '' 
+
+
+        context = {
+            'instance':instance,
+            'app':model_name,
+            'modelSelected':'mapping_biller'
+        }
+
+        html = "mainapp/"+model_name+"/edit_biller.html"
+        return render(request, html, context)
+
     except Exception as e:
         raise e
 

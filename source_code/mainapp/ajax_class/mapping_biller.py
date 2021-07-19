@@ -3,6 +3,7 @@ from mainapp.models import Mapping
 
 def isotime(param):
     result = (str(param)).replace('T', ' ')
+    result = result.split('.')[0]
     return result
 
 class MappingBillerClass:
@@ -12,6 +13,7 @@ class MappingBillerClass:
 
     def filter_search(self, search):
         return Mapping.objects.using('switching').filter(
+                Q(updated_at__icontains=search)|
                 Q(created_at__icontains=search)|
                 Q(kode_biller__icontains=search)|
                 Q(nama_biller__icontains=search)|
@@ -27,6 +29,7 @@ class MappingBillerClass:
     def generate_data(self, object_list):
         data = [
             {
+                'updated_at': isotime(item.updated_at),
                 'created_at': isotime(item.created_at),
                 'kode_biller': item.kode_biller,
                 'nama_biller': item.nama_biller,

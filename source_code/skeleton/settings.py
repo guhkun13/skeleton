@@ -136,21 +136,21 @@ else:
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         },
-        'btnsportal': {
+        'billing': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': 'btnsportal',
-           'USER': 'postgres',
-           'PASSWORD': 'postgres',
            'HOST': '127.0.0.1',
            'PORT': '5432',
+           'NAME': 'btnsportal',
+           'USER': 'postgres',
+           'PASSWORD': 'postgres',           
         },
         'switching': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'HOST': 'localhost',
-           'NAME': 'switching',
-           'USER': 'mapping_btns',
-           'PASSWORD': 'mapping_btns',
+           'HOST': '127.0.0.1',
            'PORT': '5432',
+           'NAME': 'switching',
+           'USER': 'switching_btns',
+           'PASSWORD': 'switching_btns',
        }
     }
 
