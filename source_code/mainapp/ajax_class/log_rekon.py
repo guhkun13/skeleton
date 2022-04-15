@@ -7,7 +7,7 @@ def isotime(param):
 
 class RekonClass:
 
-    def get_all_data(self):
+    def get_all_data(self, **kwargs):
         return LogRekon.objects.using('billing').all()
 
     def filter_search(self, search):
