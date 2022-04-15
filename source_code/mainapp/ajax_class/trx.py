@@ -7,7 +7,7 @@ def isotime(param):
 
 class TrxClass:
 
-    def get_all_data(self):
+    def get_all_data(self, year=None):
         return Payment.objects.using('billing').all()
 
     def filter_search(self, search):

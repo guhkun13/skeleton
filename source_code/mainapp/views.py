@@ -151,7 +151,8 @@ def log_general(request):
         model_selected = _LOG_INQ
         list_years = get_years_from_records(model_selected)
     
-    if model_selected == _LOG_INQ:
+    if year_selected:
+      print ('year_selected true = ' + str(year_selected))
       list_years = get_years_from_records(model_selected)
 
     print('list_years', list_years)
@@ -166,10 +167,14 @@ def log_general(request):
       year_selected = str(c_year)
       available_years = [str(c_year)]
     else:
-      # sudah di-sort DESC. ambil year yang terbaru
-      if not year_selected:
+      print ('else available_years', available_years)
+      print ('year_selected = ', year_selected)
+
+      # tahun sudah di-sort DESC. 
+      # ambil year yang terbaru jika kosong atau tahun yang dipilih tidak tersedia di log
+      if not year_selected or str(year_selected) not in available_years:
         year_selected = available_years[0]
-    
+        
     context = {
         'app':app_name,
         'modelSelected': model_selected,
@@ -191,7 +196,13 @@ def get_years_from_records(model_name):
   print('get_years_from_records '+ model_name)
   qs = None
   if model_name == _LOG_INQ:    
-    qs = LogInquiry.objects.using('billing').values(year=ExtractYear('ts')).annotate(count_year=Count('year')).order_by('-year');
+    qs = LogInquiry.objects.using('billing').values(year=ExtractYear('ts'))
+  elif model_name == _LOG_PAY:    
+    qs = LogPayment.objects.using('billing').values(year=ExtractYear('ts'))
+  elif model_name == _LOG_REV:    
+    qs = LogReversal.objects.using('billing').values(year=ExtractYear('ts'))
+
+  qs = qs.annotate(count_year=Count('year')).order_by('-year');
     
   return qs
 
