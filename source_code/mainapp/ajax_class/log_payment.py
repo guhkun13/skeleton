@@ -7,8 +7,14 @@ def isotime(param):
 
 class LogPaymentClass:
 
-    def get_all_data(self):
-        return LogPayment.objects.using('billing').all()
+    def get_all_data(self, **kwargs):
+      data = LogPayment.objects.using('billing').all()
+        
+      year = kwargs.get('year')
+      if year:
+        data = data.filter(ts__year=year)
+
+      return data
 
     def filter_search(self, search):
         return LogPayment.objects.using('billing').filter(

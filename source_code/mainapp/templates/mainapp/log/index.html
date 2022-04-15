@@ -11,13 +11,13 @@
 
 {% block content %}
 <div class="section section-data-tables">
-  <div class="col s12 m8 l8 offset-l2 offset-m2">
+  <div class="col s12 m8 l6 ">
     <div class="card card card-default scrollspy">
       <div class="card-content">
         <form action="{% url 'mainapp:log_general' %}" method="GET">
           {% csrf_token %}
           <div class="row">
-            <div class="col l6 s12">
+            <div class="col s12 m6 l6">
               <label> Tipe Log </label>
               <select name="model_name">
                 <option value="log_inquiry" {% if modelSelected == 'log_inquiry' %} selected {% endif %}> INQUIRY </option>
@@ -25,6 +25,15 @@
                 <option value="log_reversal" {% if modelSelected == 'log_reversal' %} selected {% endif %}> REVERSAL </option>
               </select>
             </div>
+            <div class="col s12 m6 l6">
+              <label> Tahun </label>
+              <select name="year_selected">
+                {% for year in available_years %}
+                <option value="{{ year }}" {% if yearSelected == year %} selected {% endif %}> {{ year }} </option>
+                {% endfor %}
+              </select>
+            </div>
+
             <div class="input-field col s12">
               <button class="btn waves-effect waves-light submit" type="submit" name="action">
                 Submit <i class="material-icons right">send</i>
@@ -99,7 +108,8 @@
         "url": "{% url 'mainapp:ajax_datatables' modelSelected %}",
         "type": "POST",
         "data": {
-          "csrfmiddlewaretoken": "{{ csrf_token }}"
+          "csrfmiddlewaretoken": "{{ csrf_token }}",
+          "year_selected": "{{yearSelected}}"
         },
       },
       "columnDefs": [{

@@ -8,7 +8,7 @@ def isotime(param):
 
 class MappingBillerClass:
 
-    def get_all_data(self):
+    def get_all_data(self, year=None):
         return Mapping.objects.using('switching').all()
 
     def filter_search(self, search):

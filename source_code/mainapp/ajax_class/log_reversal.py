@@ -7,8 +7,13 @@ def isotime(param):
 
 class LogReversalClass:
 
-    def get_all_data(self):
-        return LogReversal.objects.using('billing').all()
+    def get_all_data(self, **kwargs):
+      data = LogReversal.objects.using('billing').all()
+        
+      # if year:
+      #   data = data.filter(ts__year=year)
+
+      return LogReversal.objects.using('billing').all()
 
     def filter_search(self, search):
         return LogReversal.objects.using('billing').filter(
