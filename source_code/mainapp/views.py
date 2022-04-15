@@ -1,6 +1,8 @@
+from distutils.log import Log
 import json
 import socket
 from pprint import pprint
+from xmlrpc.client import DateTime
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -26,6 +28,11 @@ _INFO	     = 20
 _SUCCESS     = 25
 _WARNING	 = 30
 _ERROR	     = 40
+
+
+_LOG_INQ = 'log_inquiry'
+_LOG_PAY = 'log_payment'
+_LOG_REV = 'log_reversal'
 
 # Create your views here.
 def index(request):
@@ -70,6 +77,7 @@ def dashboard(request):
 class AjaxDatatables(View):
 
     def post(self, request, model):
+        print('AjaxDatatables_post')        
         datas = self._process(request, model)
         return HttpResponse(json.dumps(datas, cls=DjangoJSONEncoder), content_type='application/json')
 
@@ -87,11 +95,16 @@ class AjaxDatatables(View):
 
         print('modelsClass = ' , modelClass)
         # datas = get_data_by_model(model)
-        datas = modelClass.get_all_data()
+        year = request.POST.get('year_selected') or None
+
+        datas = modelClass.get_all_data(year)
         records_total = datas.count()
         records_filtered = records_total
 
+        print('records_total = ' + str(records_total))
+
         if search:
+            print('do search')
             datas = modelClass.filter_search(search)
 
         datas = filter_specific_column(datas, datatables)
@@ -99,6 +112,8 @@ class AjaxDatatables(View):
 
         records_total = datas.count()
         records_filtered = records_total
+
+        print('records_total = ' + str(records_total))
 
         object_list = process_paginator(datas, start, length)
         data = modelClass.generate_data(object_list)
@@ -114,10 +129,10 @@ class AjaxDatatables(View):
 # *********** CUSTOM VIEWS HERE ************* #
 @login_required()
 def log_inquiry(request):
-    model_name = 'log_inquiry'
+    model_name = _LOG_INQ
     context = {
         'app':model_name,
-        'selectedModel':'log_inquiry'
+        'selectedModel':_LOG_INQ
     }
 
     html = "mainapp/"+model_name+"/index.html"
@@ -127,18 +142,58 @@ def log_inquiry(request):
 def log_general(request):
     app_name = 'log_general'
     model_selected = request.GET.get('model_name')
-    list_model_log = ['log_inquiry', 'log_payment', 'log_reversal']
+    year_selected = request.GET.get('year_selected')
+    list_model_log = [_LOG_INQ, _LOG_PAY, _LOG_REV]
 
+    available_years = []
+    list_years = None
     if not model_selected in list_model_log:
-        model_selected = 'log_inquiry'
+        model_selected = _LOG_INQ
+        list_years = get_years_from_records(model_selected)
+    
+    if model_selected == _LOG_INQ:
+      list_years = get_years_from_records(model_selected)
 
+    print('list_years', list_years)
+    
+    if list_years:
+      for item in list_years:
+        available_years.append(str(item['year']))
+    
+    c_year = datetime.now().year
+
+    if not available_years:
+      year_selected = str(c_year)
+      available_years = [str(c_year)]
+    else:
+      # sudah di-sort DESC. ambil year yang terbaru
+      year_selected = available_years[0]
+    
     context = {
         'app':app_name,
-        'modelSelected': model_selected
+        'modelSelected': model_selected,
+        'yearSelected': year_selected,
+        'available_years': available_years,
+        'c_year': c_year
     }
+
+    print('context')
+    print(context)
 
     html = "mainapp/log/index.html"
     return render(request, html, context)
+
+from django.db.models import Count
+from django.db.models.functions import ExtractMonth, ExtractYear
+
+def get_years_from_records(model_name):
+  print('get_years_from_records '+ model_name)
+  qs = None
+  if model_name == _LOG_INQ:    
+    qs = LogInquiry.objects.using('billing').values(year=ExtractYear('ts')).annotate(count_year=Count('year')).order_by('-year');
+    
+  return qs
+
 
 @login_required()
 def trx(request):

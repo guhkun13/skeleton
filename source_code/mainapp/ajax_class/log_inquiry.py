@@ -7,10 +7,18 @@ def isotime(param):
 
 class LogInquiryClass:
 
-    def get_all_data(self):
-        return LogInquiry.objects.using('billing').all()
+    def get_all_data(self, year=None):
+        print('get_all_data, year = ' + year)
+        data = LogInquiry.objects.using('billing').all()
+        if year:
+          print ('filter by year ' + year)
+          data = data.filter(ts__year=year)
+
+        return data
 
     def filter_search(self, search):
+        print('filter_search')
+        
         return LogInquiry.objects.using('billing').filter(
                 Q(ts__icontains=search)|
                 Q(kode_biller__icontains=search)|
@@ -22,6 +30,7 @@ class LogInquiryClass:
             )
 
     def generate_data(self, object_list):
+        print('generate_data')
 
         data = [
             {
