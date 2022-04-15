@@ -167,7 +167,8 @@ def log_general(request):
       available_years = [str(c_year)]
     else:
       # sudah di-sort DESC. ambil year yang terbaru
-      year_selected = available_years[0]
+      if not year_selected:
+        year_selected = available_years[0]
     
     context = {
         'app':app_name,
