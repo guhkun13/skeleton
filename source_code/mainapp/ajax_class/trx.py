@@ -7,9 +7,17 @@ def isotime(param):
 
 class TrxClass:
 
-    def get_all_data(self, year=None):
-        return Payment.objects.using('billing').all()
+    def get_all_data(self, **kwargs):
+      print('get_all_data Trx')
+      data = Payment.objects.using('billing').all()
+      year = kwargs.get('year')
+    
+      if year:
+        print ('year = ', year)
+        data = data.filter(ts__year=year)
 
+      return data 
+      
     def filter_search(self, search):
         return Payment.objects.using('billing').filter(
                 Q(ts__icontains=search)|

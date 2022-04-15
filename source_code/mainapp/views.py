@@ -33,6 +33,7 @@ _ERROR	     = 40
 _LOG_INQ = 'log_inquiry'
 _LOG_PAY = 'log_payment'
 _LOG_REV = 'log_reversal'
+_TRX     = 'trx'
 
 # Create your views here.
 def index(request):
@@ -97,11 +98,11 @@ class AjaxDatatables(View):
         # datas = get_data_by_model(model)
         year = request.POST.get('year_selected') or None
 
-        datas = modelClass.get_all_data(year)
+        datas = modelClass.get_all_data(year=year)
         records_total = datas.count()
         records_filtered = records_total
 
-        print('records_total = ' + str(records_total))
+        print('[before filter] records_total = ' + str(records_total))
 
         if search:
             print('do search')
@@ -113,7 +114,7 @@ class AjaxDatatables(View):
         records_total = datas.count()
         records_filtered = records_total
 
-        print('records_total = ' + str(records_total))
+        print('[after filter] records_total = ' + str(records_total))
 
         object_list = process_paginator(datas, start, length)
         data = modelClass.generate_data(object_list)
@@ -142,18 +143,20 @@ def log_inquiry(request):
 def log_general(request):
     app_name = 'log_general'
     model_selected = request.GET.get('model_name')
+
     year_selected = request.GET.get('year_selected')
     list_model_log = [_LOG_INQ, _LOG_PAY, _LOG_REV]
 
     available_years = []
     list_years = None
-    if not model_selected in list_model_log:
+    if not model_selected or model_selected == '':
         model_selected = _LOG_INQ
-        list_years = get_years_from_records(model_selected)
     
-    if year_selected:
-      print ('year_selected true = ' + str(year_selected))
-      list_years = get_years_from_records(model_selected)
+    list_years = get_years_from_records(model_selected)
+    
+    # if year_selected:
+    #   print ('year_selected true = ' + str(year_selected))
+    #   list_years = get_years_from_records(model_selected)
 
     print('list_years', list_years)
     
@@ -180,13 +183,49 @@ def log_general(request):
         'modelSelected': model_selected,
         'yearSelected': year_selected,
         'available_years': available_years,
-        'c_year': c_year
     }
 
     print('context')
     print(context)
 
     html = "mainapp/log/index.html"
+    return render(request, html, context)
+
+
+@login_required()
+def trx(request):
+    model_name = 'trx'
+
+    year_selected = request.GET.get('year_selected')
+
+    available_years = []
+    list_years = get_years_from_records(model_name)
+
+    print('list_years', list_years)
+    if list_years:
+      for item in list_years:
+        available_years.append(str(item['year']))
+    
+    c_year = datetime.now().year
+
+    if not available_years:
+      year_selected = str(c_year)
+      available_years = [str(c_year)]
+    else:
+      print ('else available_years', available_years)
+      print ('year_selected = ', year_selected)
+
+      if not year_selected or str(year_selected) not in available_years:
+        year_selected = available_years[0]
+
+    context = {
+        'app':model_name,
+        'modelSelected':'trx',
+        'yearSelected': year_selected,
+        'available_years': available_years,
+    }
+
+    html = "mainapp/"+model_name+"/index.html"
     return render(request, html, context)
 
 from django.db.models import Count
@@ -201,22 +240,14 @@ def get_years_from_records(model_name):
     qs = LogPayment.objects.using('billing').values(year=ExtractYear('ts'))
   elif model_name == _LOG_REV:    
     qs = LogReversal.objects.using('billing').values(year=ExtractYear('ts'))
+  elif model_name == _TRX:
+    qs = Payment.objects.using('billing').values(year=ExtractYear('ts'))
 
   qs = qs.annotate(count_year=Count('year')).order_by('-year');
     
   return qs
 
 
-@login_required()
-def trx(request):
-    model_name = 'trx'
-    context = {
-        'app':model_name,
-        'modelSelected':'trx'
-    }
-
-    html = "mainapp/"+model_name+"/index.html"
-    return render(request, html, context)
 
 @login_required()
 def rekon(request):

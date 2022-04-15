@@ -7,7 +7,11 @@ def isotime(param):
 
 class LogInquiryClass:
 
-    def get_all_data(self, year=None):
+    def get_all_data(self, **kwargs):
+        for key in kwargs:
+          print("The key {} holds {} value".format(key, kwargs[key]))
+
+        year = kwargs.get('year')
         print('get_all_data, year = ' + year)
         data = LogInquiry.objects.using('billing').all()
         if year:
