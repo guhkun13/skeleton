@@ -3,6 +3,11 @@
 
 {% block css %}
 <!-- custom css -->
+<style>
+  code {
+    color: #64748b;
+  }
+</style>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -11,6 +16,7 @@
 
 {% block content %}
 <div id="card-stats" class="pt-0">
+  {% comment %} Cards {% endcomment %}
   <div class="row">
     <div class="col s12 m6 l6 xl3">
       <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text animate fadeLeft">
@@ -67,8 +73,9 @@
     </div>
   </div>
   
+  {% comment %} Table {% endcomment %}
   <div class="row">
-    <div class="col s12 m6 l4 xl4">
+    <div class="col s12 l4 ">
       <div class="card gradient-shadow min-height-100 white-text animate fadeLeft">
         <div class="card-content black-text">
           <span class="card-title"> Log Inquiry </span>
@@ -85,8 +92,8 @@
                 <tr>
                   <td> {{ item.year|slugify }} </td>
                   <td> {{ item.total }} </td>
-                  <td> {{ item.total_success }} <code> <sub> {{ item.total_success_percent }}% </sub> </code> </td>
-                  <td> {{ item.total_failed }} <code> <sub> {{ item.total_failed_percent }}% </sub> </code> </td>
+                  <td> {{ item.total_success }} <code> <sub> ({{ item.total_success_percent }}%) </sub> </code> </td>
+                  <td> {{ item.total_failed }} <code> <sub> ({{ item.total_failed_percent }}%) </sub> </code> </td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -96,7 +103,7 @@
         </div>
       </div>
     </div>
-    <div class="col s12 m6 l4 xl4">
+    <div class="col s12 l4 ">
       <div class="card gradient-shadow min-height-100 white-text animate fadeLeft">
         <div class="card-content black-text">
           <span class="card-title"> Log Payment </span>
@@ -113,8 +120,8 @@
                 <tr>
                   <td> {{ item.year|slugify }} </td>
                   <td> {{ item.total }} </td>
-                  <td> {{ item.total_success }} <code> <sub> {{ item.total_success_percent }}% </sub> </code> </td>
-                  <td> {{ item.total_failed }} <code> <sub> {{ item.total_failed_percent }}% </sub> </code> </td>
+                  <td> {{ item.total_success }} <code> <sub> ({{ item.total_success_percent }}%) </sub> </code> </td>
+                  <td> {{ item.total_failed }} <code> <sub> ({{ item.total_failed_percent }}%) </sub> </code> </td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -124,7 +131,7 @@
         </div>
       </div>
     </div>
-    <div class="col s12 m6 l4 xl4">
+    <div class="col s12 l4">
       <div class="card gradient-shadow min-height-100 white-text animate fadeLeft">
         <div class="card-content black-text">
           <span class="card-title"> Log Reversal </span>
@@ -141,8 +148,8 @@
                 <tr>
                   <td> {{ item.year|slugify }} </td>
                   <td> {{ item.total }} </td>
-                  <td> {{ item.total_success }} <code> <sub> {{ item.total_success_percent }}% </sub> </code> </td>
-                  <td> {{ item.total_failed }} <code> <sub> {{ item.total_failed_percent }}% </sub> </code> </td>
+                  <td> {{ item.total_success }} <code> <sub> ({{ item.total_success_percent }}%) </sub> </code> </td>
+                  <td> {{ item.total_failed }} <code> <sub> ({{ item.total_failed_percent }}%) </sub> </code> </td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -153,6 +160,72 @@
       </div>
     </div>
     
+  </div>
+  
+  {% comment %} Trx Count and Amount {% endcomment %}
+  <div class="row">
+    <div class="col s12 m12 l4 xl4">
+      <div class="card gradient-shadow min-height-100 white-text animate fadeLeft">
+        <div class="card-content black-text">
+          <span class="card-title"> Transaksi </span>
+          <div class="padding-4">          
+            <table>
+              <thead> 
+                <th> Tahun  </th>
+                <th> Total  </th>
+                <th> Sukses (RC 00) </th>
+                <th> Gagal (RC !00) </th>
+              </thead>
+              <tbody>
+                {% for item in data.trx %}
+                <tr>
+                  <td> {{ item.year|slugify }} </td>
+                  <td> {{ item.total }} </td>
+                  <td> {{ item.total_success }} <code> <sub>({{ item.total_success_percent }}%) </sub> </code> </td>
+                  <td> {{ item.total_failed }} <code> <sub>({{ item.total_failed_percent }}%)</sub> </code> </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m12 l8">
+      <div class="card gradient-shadow min-height-100 white-text animate fadeLeft">
+        <div class="card-content black-text">
+          <span class="card-title"> Nominal Transaksi </span>
+          <div class="padding-4">          
+            <table>
+              <thead> 
+                <th> Tahun  </th>
+                <th> Total  </th>
+                <th> Sukses  </th>
+                <th> Batal  </th>
+              </thead>
+              <tbody>
+                {% for item in data.trx_amount %}
+                <tr>
+                  <td> {{ item.year|slugify }} </td>
+                  <td> {{ item.count_all }}  
+                    <code> <sub> (Rp.{{ item.total_nominal }}) </sub> </span> 
+                  </td>
+                  <td> {{ item.count_nominal_success }}  
+                    <code> <sub>(Rp.{{ item.total_nominal_success }}) </sub> </code> 
+                  </td>
+                  <td> {{ item.count_nominal_cancel }} 
+                    <code> <sub> (Rp.{{ item.total_nominal_cancel }}) </sub> </code> 
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

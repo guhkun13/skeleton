@@ -56,6 +56,8 @@ def get_data_dashboard():
     result['log_inquiry'] = get_summary_log(_LOG_INQ)
     result['log_payment'] = get_summary_log(_LOG_PAY)
     result['log_reversal'] = get_summary_log(_LOG_REV)
+    result['trx'] = get_summary_log(_TRX)
+    result['trx_amount'] = get_summary_trx_amount()
 
     return result
 
@@ -66,6 +68,45 @@ def percentage(part, whole):
     result = round(result, 2)
 
     return result
+
+def get_summary_trx_amount():
+  ret = []
+  list_years = get_years_from_records(_TRX)
+  qs_all = Payment.objects.using('billing').all()
+
+  for item in list_years:
+    print ('#', item['year'])
+    temp_arr = {}
+    
+    qs = qs_all.filter(ts__year=item['year'])
+    total_nominal_all = qs.aggregate(Sum('nominal_bayar'))['nominal_bayar__sum'] or None
+    count_all = qs.count()
+    print ('total_nominal_all %s ' % total_nominal_all)
+
+    qs_ok = qs.filter(rc='00', status_bayar='1')
+    total_nominal_success = qs_ok.aggregate(Sum('nominal_bayar'))['nominal_bayar__sum'] or None
+    count_nominal_success = qs_ok.count()
+    print ('total_nominal_success %s ' % total_nominal_success)
+
+    total_nominal_success = 0 if total_nominal_success is None else total_nominal_success
+    total_nominal_cancel = total_nominal_all - total_nominal_success
+    count_nominal_cancel = count_all - count_nominal_success
+    print ('total_nominal_cancel %s ' % total_nominal_cancel)
+
+    temp_arr['year'] = item['year']
+    temp_arr['count_all'] = count_all
+    temp_arr['total_nominal'] = total_nominal_all
+
+    temp_arr['count_nominal_success'] = count_nominal_success
+    temp_arr['total_nominal_success'] = total_nominal_success
+
+    temp_arr['count_nominal_cancel'] = count_nominal_cancel
+    temp_arr['total_nominal_cancel'] = total_nominal_cancel
+
+    ret.append(temp_arr)
+  
+  return ret
+  
 
 from django.db.models import Count
 from django.db.models.functions import ExtractMonth, ExtractYear
@@ -121,17 +162,20 @@ def get_summary_log(model):
   if model == _LOG_INQ:
     list_years = get_years_from_records(_LOG_INQ)
     qs = LogInquiry.objects.using('billing').all()
-    ret = iterate_log(list_years, qs)
 
   elif model == _LOG_PAY:
     list_years = get_years_from_records(_LOG_PAY)
     qs = LogPayment.objects.using('billing').all()
-    ret = iterate_log(list_years, qs)
+
   elif model == _LOG_REV:
     list_years = get_years_from_records(_LOG_REV)
     qs = LogReversal.objects.using('billing').all()
-    ret = iterate_log(list_years, qs)
   
+  elif model == _TRX:
+    list_years = get_years_from_records(_TRX)
+    qs = LogReversal.objects.using('billing').all()
+
+  ret = iterate_log(list_years, qs)
   print (ret)
 
   return ret
