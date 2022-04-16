@@ -24,12 +24,13 @@
               <h5 class="mb-0 white-text"> {{ data.total_biller_all }} </h5>
               <p class="no-margin"> P2H : {{ data.total_biller_p2h }} </p>
               <p class="no-margin"> H2H : {{ data.total_biller_h2h }} </p>
-
+              
             </div>
           </div>
         </div>
       </div>
     </div>
+    
     <div class="col s12 m6 l6 xl3">
       <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text animate fadeRight">
         <div class="padding-4">
@@ -64,6 +65,94 @@
         </div>
       </div>
     </div>
+  </div>
+  
+  <div class="row">
+    <div class="col s12 m6 l4 xl4">
+      <div class="card gradient-shadow min-height-100 white-text animate fadeLeft">
+        <div class="card-content black-text">
+          <span class="card-title"> Log Inquiry </span>
+          <div class="padding-4">          
+            <table>
+              <thead> 
+                <th> Tahun  </th>
+                <th> Total  </th>
+                <th> Sukses (RC 00) </th>
+                <th> Gagal (RC !00) </th>
+              </thead>
+              <tbody>
+                {% for item in data.log_inquiry %}
+                <tr>
+                  <td> {{ item.year|slugify }} </td>
+                  <td> {{ item.total }} </td>
+                  <td> {{ item.total_success }} <code> <sub> {{ item.total_success_percent }}% </sub> </code> </td>
+                  <td> {{ item.total_failed }} <code> <sub> {{ item.total_failed_percent }}% </sub> </code> </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6 l4 xl4">
+      <div class="card gradient-shadow min-height-100 white-text animate fadeLeft">
+        <div class="card-content black-text">
+          <span class="card-title"> Log Payment </span>
+          <div class="padding-4">          
+            <table>
+              <thead> 
+                <th> Tahun  </th>
+                <th> Total  </th>
+                <th> Sukses (RC 00) </th>
+                <th> Gagal (RC !00) </th>
+              </thead>
+              <tbody>
+                {% for item in data.log_payment %}
+                <tr>
+                  <td> {{ item.year|slugify }} </td>
+                  <td> {{ item.total }} </td>
+                  <td> {{ item.total_success }} <code> <sub> {{ item.total_success_percent }}% </sub> </code> </td>
+                  <td> {{ item.total_failed }} <code> <sub> {{ item.total_failed_percent }}% </sub> </code> </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6 l4 xl4">
+      <div class="card gradient-shadow min-height-100 white-text animate fadeLeft">
+        <div class="card-content black-text">
+          <span class="card-title"> Log Reversal </span>
+          <div class="padding-4">          
+            <table>
+              <thead> 
+                <th> Tahun  </th>
+                <th> Total  </th>
+                <th> Sukses (RC 00) </th>
+                <th> Gagal (RC !00) </th>
+              </thead>
+              <tbody>
+                {% for item in data.log_reversal %}
+                <tr>
+                  <td> {{ item.year|slugify }} </td>
+                  <td> {{ item.total }} </td>
+                  <td> {{ item.total_success }} <code> <sub> {{ item.total_success_percent }}% </sub> </code> </td>
+                  <td> {{ item.total_failed }} <code> <sub> {{ item.total_failed_percent }}% </sub> </code> </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </div>
 

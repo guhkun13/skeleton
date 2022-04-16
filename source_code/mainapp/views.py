@@ -17,6 +17,7 @@ from django.views.generic import DetailView, View
 
 from .utils import *
 
+
 from mainapp.ajax_class.utils import *
 from django.core.serializers.json import DjangoJSONEncoder
 from skeleton.settings import root_url
@@ -28,7 +29,6 @@ _INFO	     = 20
 _SUCCESS     = 25
 _WARNING	 = 30
 _ERROR	     = 40
-
 
 _LOG_INQ = 'log_inquiry'
 _LOG_PAY = 'log_payment'
@@ -71,8 +71,10 @@ def dashboard(request):
 
     context = {
         'app' : 'dashboard',
-        'data' : data,
+        'data' : data,        
     }
+
+    # print(data)
     return render(request, html, context)
 
 class AjaxDatatables(View):
@@ -227,26 +229,6 @@ def trx(request):
 
     html = "mainapp/"+model_name+"/index.html"
     return render(request, html, context)
-
-from django.db.models import Count
-from django.db.models.functions import ExtractMonth, ExtractYear
-
-def get_years_from_records(model_name):
-  print('get_years_from_records '+ model_name)
-  qs = None
-  if model_name == _LOG_INQ:    
-    qs = LogInquiry.objects.using('billing').values(year=ExtractYear('ts'))
-  elif model_name == _LOG_PAY:    
-    qs = LogPayment.objects.using('billing').values(year=ExtractYear('ts'))
-  elif model_name == _LOG_REV:    
-    qs = LogReversal.objects.using('billing').values(year=ExtractYear('ts'))
-  elif model_name == _TRX:
-    qs = Payment.objects.using('billing').values(year=ExtractYear('ts'))
-
-  qs = qs.annotate(count_year=Count('year')).order_by('-year');
-    
-  return qs
-
 
 
 @login_required()
