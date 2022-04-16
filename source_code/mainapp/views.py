@@ -17,6 +17,7 @@ from django.views.generic import DetailView, View
 
 from .utils import *
 
+
 from mainapp.ajax_class.utils import *
 from django.core.serializers.json import DjangoJSONEncoder
 from skeleton.settings import root_url
@@ -71,8 +72,10 @@ def dashboard(request):
 
     context = {
         'app' : 'dashboard',
-        'data' : data,
+        'data' : data,        
     }
+
+    # print(data)
     return render(request, html, context)
 
 class AjaxDatatables(View):
