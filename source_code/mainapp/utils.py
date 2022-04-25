@@ -53,11 +53,11 @@ def get_data_dashboard():
         'percentage_trx_all_success'        : percentage_trx_all_success,
     }
 
-    result['log_inquiry'] = get_summary_log(_LOG_INQ)
-    result['log_payment'] = get_summary_log(_LOG_PAY)
-    result['log_reversal'] = get_summary_log(_LOG_REV)
-    result['trx'] = get_summary_log(_TRX)
-    result['trx_amount'] = get_summary_trx_amount()
+    # result['log_inquiry'] = get_summary_log(_LOG_INQ)
+    # result['log_payment'] = get_summary_log(_LOG_PAY)
+    # result['log_reversal'] = get_summary_log(_LOG_REV)
+    # result['trx'] = get_summary_log(_TRX)
+    # result['trx_amount'] = get_summary_trx_amount()
 
     return result
 
