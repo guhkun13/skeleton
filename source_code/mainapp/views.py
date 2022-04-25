@@ -96,11 +96,13 @@ class AjaxDatatables(View):
         search = params['search']
         order_col_name = params['order_col_name']
 
-        print('modelsClass = ' , modelClass)
         # datas = get_data_by_model(model)
         year = request.POST.get('year_selected') or None
+        month = request.POST.get('month_selected') or None
 
-        datas = modelClass.get_all_data(year=year)
+        print ('year/month = {}/{}'.format(year, month))
+
+        datas = modelClass.get_all_data(year=year, month=month)
         records_total = datas.count()
         records_filtered = records_total
 
@@ -141,12 +143,29 @@ def log_inquiry(request):
     html = "mainapp/"+model_name+"/index.html"
     return render(request, html, context)
 
+import calendar
+
+
 @login_required()
 def log_general(request):
     app_name = 'log_general'
+    available_months = []
+
+    available_months.append({"id": 0, "name":"ALL"})
+    idxm = 1
+    for month in calendar.month_name[1:]:
+      available_months.append({"id": idxm, "name":month})
+      idxm += 1
+    
+    # print (available_months)
+
     model_selected = request.GET.get('model_name')
 
     year_selected = request.GET.get('year_selected')
+    month_selected = request.GET.get('month_selected')
+
+    print ('yearSel / monthSel = {}/{}'.format(year_selected, month_selected))
+
     list_model_log = [_LOG_INQ, _LOG_PAY, _LOG_REV]
 
     available_years = []
@@ -157,16 +176,20 @@ def log_general(request):
     list_years = get_years_from_records(model_selected)
     
     # if year_selected:
-    #   print ('year_selected true = ' + str(year_selected))
+    #   print ('year_selected true = ' + str(year_fselected))
     #   list_years = get_years_from_records(model_selected)
 
-    print('list_years', list_years)
+    # print('list_years', list_years)
     
     if list_years:
       for item in list_years:
         available_years.append(str(item['year']))
     
     c_year = datetime.now().year
+    c_month = datetime.now().month
+
+    if not month_selected:
+      month_selected = c_month
 
     if not available_years:
       year_selected = str(c_year)
@@ -182,12 +205,14 @@ def log_general(request):
         
     context = {
         'app':app_name,
-        'modelSelected': model_selected,
-        'yearSelected': year_selected,
+        'model_selected': model_selected,
+        'year_selected': year_selected,
+        'month_selected': int(month_selected),
         'available_years': available_years,
+        'available_months': available_months,
     }
 
-    print('context')
+    # print('context')
     print(context)
 
     html = "mainapp/log/index.html"
@@ -229,6 +254,26 @@ def trx(request):
 
     html = "mainapp/"+model_name+"/index.html"
     return render(request, html, context)
+
+from django.db.models import Count
+from django.db.models.functions import ExtractMonth, ExtractYear
+
+def get_years_from_records(model_name):
+  print('get_years_from_records '+ model_name)
+  qs = None
+  if model_name == _LOG_INQ:    
+    qs = LogInquiry.objects.using('billing').values(year=ExtractYear('ts'))
+  elif model_name == _LOG_PAY:    
+    qs = LogPayment.objects.using('billing').values(year=ExtractYear('ts'))
+  elif model_name == _LOG_REV:    
+    qs = LogReversal.objects.using('billing').values(year=ExtractYear('ts'))
+  elif model_name == _TRX:
+    qs = Payment.objects.using('billing').values(year=ExtractYear('ts'))
+
+  qs = qs.annotate(count_year=Count('year')).order_by('-year');
+    
+  return qs
+
 
 
 @login_required()

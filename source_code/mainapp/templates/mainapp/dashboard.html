@@ -210,23 +210,23 @@
                   <td> {{ item.year|slugify }} </td>
                   <td> {{ item.count_all }}  
                     <code> <sub> (Rp.{{ item.total_nominal }}) </sub> </span> 
-                  </td>
-                  <td> {{ item.count_nominal_success }}  
-                    <code> <sub>(Rp.{{ item.total_nominal_success }}) </sub> </code> 
-                  </td>
-                  <td> {{ item.count_nominal_cancel }} 
-                    <code> <sub> (Rp.{{ item.total_nominal_cancel }}) </sub> </code> 
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-            
+                    </td>
+                    <td> {{ item.count_nominal_success }}  
+                      <code> <sub>(Rp.{{ item.total_nominal_success }}) </sub> </code> 
+                    </td>
+                    <td> {{ item.count_nominal_cancel }} 
+                      <code> <sub> (Rp.{{ item.total_nominal_cancel }}) </sub> </code> 
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-{% endblock %}
+  
+  {% endblock %}
+  

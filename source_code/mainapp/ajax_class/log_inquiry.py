@@ -12,11 +12,18 @@ class LogInquiryClass:
           print("The key {} holds {} value".format(key, kwargs[key]))
 
         year = kwargs.get('year')
+        
         print('get_all_data, year = ' + year)
         data = LogInquiry.objects.using('billing').all()
+        
         if year:
           print ('filter by year ' + year)
           data = data.filter(ts__year=year)
+        
+        month = kwargs.get('month')
+        if month and int(month) > 0:
+          print ('filter by month ' + month)
+          data = data.filter(ts__month=month)
 
         return data
 

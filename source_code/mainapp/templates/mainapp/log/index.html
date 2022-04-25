@@ -11,29 +11,38 @@
 
 {% block content %}
 <div class="section section-data-tables">
-  <div class="col s12 m8 l6 ">
+  <div class="col s12">
     <div class="card card card-default scrollspy">
       <div class="card-content">
         <form action="{% url 'mainapp:log_general' %}" method="GET">
           {% csrf_token %}
           <div class="row">
-            <div class="col s12 m6 l6">
+            <div class="col s12 m6 l4">
               <label> Tipe Log </label>
               <select name="model_name">
-                <option value="log_inquiry" {% if modelSelected == 'log_inquiry' %} selected {% endif %}> INQUIRY </option>
-                <option value="log_payment" {% if modelSelected == 'log_payment' %} selected {% endif %}> PAYMENT </option>
-                <option value="log_reversal" {% if modelSelected == 'log_reversal' %} selected {% endif %}> REVERSAL </option>
+                <option value="log_inquiry" {% if model_selected == 'log_inquiry' %} selected {% endif %}> INQUIRY </option>
+                <option value="log_payment" {% if model_selected == 'log_payment' %} selected {% endif %}> PAYMENT </option>
+                <option value="log_reversal" {% if model_selected == 'log_reversal' %} selected {% endif %}> REVERSAL </option>
               </select>
             </div>
-            <div class="col s12 m6 l6">
+            <div class="col s12 m6 l4">
               <label> Tahun </label>
               <select name="year_selected">
                 {% for year in available_years %}
-                <option value="{{ year }}" {% if yearSelected == year %} selected {% endif %}> {{ year }} </option>
+                <option value="{{ year }}" {% if year_selected == year %} selected {% endif %}> {{ year }} </option>
                 {% endfor %}
               </select>
             </div>
 
+            <div class="col s12 m6 l4">
+              <label> Bulan </label>
+              <select name="month_selected">
+                {% for month in available_months %}
+                <option value="{{ month.id }}" {% if month_selected == month.id %} selected {% endif %}> {{ month.name }}  </option>
+                {% endfor %}
+              </select>
+            </div>
+            
             <div class="input-field col s12">
               <button class="btn waves-effect waves-light submit" type="submit" name="action">
                 Submit <i class="material-icons right">send</i>
@@ -80,14 +89,14 @@
   $(document).ready(function() {
     var exclude_filter = ['Time Elapsed', 'TS Respon'];
     var exclude_sort = '';
-
+    
     $('#myTable thead tr').clone(true).appendTo( '#myTable thead' );
     $('#myTable thead tr:eq(1) th').each( function (i) {
       var title = $(this).text();
       if (!exclude_filter.includes(title)){
         $(this).html( '<input type="text" placeholder="Search" />' );
       }
-
+      
       $('input', this).on( 'keyup change', function () {
         if ( dtTable.column(i).search() !== this.value ) {
           dtTable
@@ -97,7 +106,7 @@
         }
       } );
     });
-
+    
     var dtTable = $('#myTable').DataTable( {
       "orderCellsTop": true,
       "fixedHeader": true,
@@ -105,11 +114,12 @@
       "serverSide": true,
       "scrollX": true,
       "ajax": {
-        "url": "{% url 'mainapp:ajax_datatables' modelSelected %}",
+        "url": "{% url 'mainapp:ajax_datatables' model_selected %}",
         "type": "POST",
         "data": {
           "csrfmiddlewaretoken": "{{ csrf_token }}",
-          "year_selected": "{{yearSelected}}"
+          "year_selected": "{{year_selected}}",
+          "month_selected": "{{month_selected}}"
         },
       },
       "columnDefs": [{

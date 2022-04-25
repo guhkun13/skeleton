@@ -9,11 +9,17 @@ class LogReversalClass:
 
     def get_all_data(self, **kwargs):
       data = LogReversal.objects.using('billing').all()
-        
-      # if year:
-      #   data = data.filter(ts__year=year)
+      
+      print (kwargs)
+      year = kwargs.get('year')
+      if year:
+        data = data.filter(ts__year=year)
 
-      return LogReversal.objects.using('billing').all()
+      month = kwargs.get('month')
+      if month and int(month) > 0:
+        data = data.filter(ts__month=month)
+
+      return data
 
     def filter_search(self, search):
         return LogReversal.objects.using('billing').filter(

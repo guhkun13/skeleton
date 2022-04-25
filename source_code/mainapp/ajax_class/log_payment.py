@@ -14,6 +14,10 @@ class LogPaymentClass:
       if year:
         data = data.filter(ts__year=year)
 
+      month = kwargs.get('month')
+      if month and int(month) > 0:
+        data = data.filter(ts__month=month)
+
       return data
 
     def filter_search(self, search):
