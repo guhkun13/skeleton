@@ -149,24 +149,20 @@ import calendar
 @login_required()
 def log_general(request):
     app_name = 'log_general'
+    
     available_months = []
-
     available_months.append({"id": 0, "name":"ALL"})
     idxm = 1
     for month in calendar.month_name[1:]:
       available_months.append({"id": idxm, "name":month})
       idxm += 1
-    
     # print (available_months)
 
     model_selected = request.GET.get('model_name')
-
     year_selected = request.GET.get('year_selected')
     month_selected = request.GET.get('month_selected')
 
     print ('yearSel / monthSel = {}/{}'.format(year_selected, month_selected))
-
-    list_model_log = [_LOG_INQ, _LOG_PAY, _LOG_REV]
 
     available_years = []
     list_years = None
@@ -174,12 +170,6 @@ def log_general(request):
         model_selected = _LOG_INQ
     
     list_years = get_years_from_records(model_selected)
-    
-    # if year_selected:
-    #   print ('year_selected true = ' + str(year_fselected))
-    #   list_years = get_years_from_records(model_selected)
-
-    # print('list_years', list_years)
     
     if list_years:
       for item in list_years:
@@ -207,8 +197,8 @@ def log_general(request):
         'app':app_name,
         'model_selected': model_selected,
         'year_selected': year_selected,
-        'month_selected': int(month_selected),
         'available_years': available_years,
+        'month_selected': int(month_selected),
         'available_months': available_months,
     }
 
@@ -223,7 +213,16 @@ def log_general(request):
 def trx(request):
     model_name = 'trx'
 
+    available_months = []
+    available_months.append({"id": 0, "name":"ALL"})
+    idxm = 1
+    for month in calendar.month_name[1:]:
+      available_months.append({"id": idxm, "name":month})
+      idxm += 1
+
     year_selected = request.GET.get('year_selected')
+    month_selected = request.GET.get('month_selected')
+    print ('yearSel / monthSel = {}/{}'.format(year_selected, month_selected))
 
     available_years = []
     list_years = get_years_from_records(model_name)
@@ -234,6 +233,11 @@ def trx(request):
         available_years.append(str(item['year']))
     
     c_year = datetime.now().year
+    c_month = datetime.now().month
+
+    if not month_selected:
+      month_selected = c_month
+
 
     if not available_years:
       year_selected = str(c_year)
@@ -250,6 +254,8 @@ def trx(request):
         'modelSelected':'trx',
         'yearSelected': year_selected,
         'available_years': available_years,
+        'month_selected': int(month_selected),
+        'available_months': available_months,
     }
 
     html = "mainapp/"+model_name+"/index.html"

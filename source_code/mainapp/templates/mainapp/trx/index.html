@@ -11,7 +11,7 @@
 
 {% block content %}
 <div class="section">
-  <div class="col s12 m8 l6">
+  <div class="col s12 m10 l6">
     <div class="card card card-default scrollspy">
       <div class="card-content">
         <form action="{% url 'mainapp:trx' %}" method="GET">
@@ -22,6 +22,15 @@
               <select name="year_selected">
                 {% for year in available_years %}
                 <option value="{{ year }}" {% if yearSelected == year %} selected {% endif %}> {{ year }} </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col s12 m6 l4">
+              <label> Bulan </label>
+              <select name="month_selected">
+                {% for month in available_months %}
+                <option value="{{ month.id }}" {% if month_selected == month.id %} selected {% endif %}> {{ month.name }}  </option>
                 {% endfor %}
               </select>
             </div>
@@ -106,7 +115,8 @@
         "type": "POST",
         "data": {
           "csrfmiddlewaretoken": "{{ csrf_token }}",
-          "year_selected": "{{yearSelected}}"
+          "year_selected": "{{yearSelected}}",
+          "month_selected": "{{month_selected}}"
         },
       },
       "columnDefs": [ {

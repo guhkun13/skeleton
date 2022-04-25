@@ -15,6 +15,10 @@ class TrxClass:
       if year:
         print ('year = ', year)
         data = data.filter(ts__year=year)
+      
+      month = kwargs.get('month')
+      if month and int(month) > 0:
+        data = data.filter(ts__month=month)
 
       return data 
       
