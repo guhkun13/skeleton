@@ -26,6 +26,16 @@
               </select>
             </div>
             <div class="col s12 m6 l4">
+              <label> Kode Biller </label>
+              <input type="text" name="biller" value={{biller}}>
+            </div>
+            
+            <div class="col s12 m6 l4">
+              <label> Nomor Bayar </label>
+              <input type="text" name="nomor_bayar" value={{nomor_bayar}}>
+            </div>
+            
+            <div class="col s12 m6 l4">
               <label> Tahun </label>
               <select name="year_selected">
                 {% for year in available_years %}
@@ -33,12 +43,22 @@
                 {% endfor %}
               </select>
             </div>
-
+            
             <div class="col s12 m6 l4">
               <label> Bulan </label>
               <select name="month_selected">
                 {% for month in available_months %}
                 <option value="{{ month.id }}" {% if month_selected == month.id %} selected {% endif %}> {{ month.name }}  </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col s12 m6 l4">
+              <label> Tanggal </label>
+              <select name="day_selected">
+                <option value="all" {% if day_selected == 'all' %} selected {% endif %}> ALL </option>
+                {% for day in days %}
+                <option value="{{ day }}" {% if day_selected == day %} selected {% endif %}> {{ day }}  </option>
                 {% endfor %}
               </select>
             </div>
@@ -130,6 +150,7 @@
           "csrfmiddlewaretoken": "{{ csrf_token }}",
           "year_selected": "{{year_selected}}",
           "month_selected": "{{month_selected}}",
+          "day_selected": "{{day_selected}}",
           "biller": "{{biller}}",
           "nomor_bayar": "{{nomor_bayar}}"
         },

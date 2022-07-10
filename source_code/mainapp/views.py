@@ -1,6 +1,8 @@
 from distutils.log import Log
 import json
 import socket
+import calendar
+
 from pprint import pprint
 from xmlrpc.client import DateTime
 
@@ -99,12 +101,13 @@ class AjaxDatatables(View):
         # datas = get_data_by_model(model)
         year = request.POST.get('year_selected') or None
         month = request.POST.get('month_selected') or None
+        day = request.POST.get('day_selected') or None
         biller = request.POST.get('biller') or None
         nomor_bayar = request.POST.get('nomor_bayar') or None
 
         print ('year/month = {}/{}'.format(year, month))
 
-        datas = modelClass.get_all_data(year=year, month=month, biller=biller, nomor_bayar=nomor_bayar)
+        datas = modelClass.get_all_data(year=year, month=month, day=day, biller=biller, nomor_bayar=nomor_bayar)
         records_total = datas.count()
         records_filtered = records_total
 
@@ -145,9 +148,6 @@ def log_inquiry(request):
     html = "mainapp/"+model_name+"/index.html"
     return render(request, html, context)
 
-import calendar
-
-
 @login_required()
 def log_general(request):
     app_name = 'log_general'
@@ -159,10 +159,12 @@ def log_general(request):
       available_months.append({"id": idxm, "name":month})
       idxm += 1
     # print (available_months)
-
+    
     model_selected = request.GET.get('model_name')
     year_selected = request.GET.get('year_selected')
     month_selected = request.GET.get('month_selected')
+    day_selected = request.GET.get('day_selected')
+    
     biller = request.GET.get('biller') or ''
     nomor_bayar = request.GET.get('nomor_bayar') or ''
 
@@ -181,9 +183,16 @@ def log_general(request):
     
     c_year = datetime.now().year
     c_month = datetime.now().month
+    c_day = datetime.now().day
 
     if not month_selected:
       month_selected = c_month
+        
+    if not day_selected:
+      day_selected = c_day
+    
+    if day_selected == 'all':
+      day_selected = 0        
 
     if not available_years:
       year_selected = str(c_year)
@@ -197,7 +206,10 @@ def log_general(request):
       if not year_selected or str(year_selected) not in available_years:
         year_selected = available_years[0]        
     
-
+    last_day_c_month = 32    
+    if int(month_selected) > 0:
+      last_day_c_month = calendar.monthrange(int(year_selected), int(month_selected))[1]
+    days = [i for i in range(1, last_day_c_month+1)];    
 
     context = {
         'app':app_name,
@@ -206,6 +218,8 @@ def log_general(request):
         'available_years': available_years,
         'month_selected': int(month_selected),
         'available_months': available_months,
+        'day_selected': int(day_selected),
+        'days': days,
         'biller': biller,
         'nomor_bayar': nomor_bayar,
     }
@@ -230,6 +244,7 @@ def trx(request):
 
     year_selected = request.GET.get('year_selected')
     month_selected = request.GET.get('month_selected')
+    day_selected = request.GET.get('day_selected')
     print ('yearSel / monthSel = {}/{}'.format(year_selected, month_selected))
 
     biller = request.GET.get('biller') or ''
@@ -245,10 +260,16 @@ def trx(request):
     
     c_year = datetime.now().year
     c_month = datetime.now().month
+    c_day = datetime.now().day
 
     if not month_selected:
       month_selected = c_month
 
+    if not day_selected:
+      day_selected = c_day
+    
+    if day_selected == 'all':
+      day_selected = 0
 
     if not available_years:
       year_selected = str(c_year)
@@ -259,6 +280,11 @@ def trx(request):
 
       if not year_selected or str(year_selected) not in available_years:
         year_selected = available_years[0]
+    
+    last_day_c_month = 32    
+    if int(month_selected) > 0:
+      last_day_c_month = calendar.monthrange(int(year_selected), int(month_selected))[1]
+    days = [i for i in range(1, last_day_c_month+1)];
 
     context = {
         'app':model_name,
@@ -267,6 +293,8 @@ def trx(request):
         'available_years': available_years,
         'month_selected': int(month_selected),
         'available_months': available_months,
+        'day_selected': int(day_selected),
+        'days': days,
         'biller': biller,
         'nomor_bayar': nomor_bayar,
     }
