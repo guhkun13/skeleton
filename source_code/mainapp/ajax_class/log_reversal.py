@@ -19,6 +19,16 @@ class LogReversalClass:
       if month and int(month) > 0:
         data = data.filter(ts__month=month)
 
+      biller = kwargs.get('biller')
+      if biller :
+        print ('filter by biller ' + biller)
+        data = data.filter(kode_biller=biller)
+      
+      nomor_bayar = kwargs.get('nomor_bayar')
+      if nomor_bayar:
+        print ('filter by nomor_bayar ' + nomor_bayar)
+        data = data.filter(nomor_pembayaran=nomor_bayar)
+
       return data
 
     def filter_search(self, search):

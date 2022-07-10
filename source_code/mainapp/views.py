@@ -99,10 +99,12 @@ class AjaxDatatables(View):
         # datas = get_data_by_model(model)
         year = request.POST.get('year_selected') or None
         month = request.POST.get('month_selected') or None
+        biller = request.POST.get('biller') or None
+        nomor_bayar = request.POST.get('nomor_bayar') or None
 
         print ('year/month = {}/{}'.format(year, month))
 
-        datas = modelClass.get_all_data(year=year, month=month)
+        datas = modelClass.get_all_data(year=year, month=month, biller=biller, nomor_bayar=nomor_bayar)
         records_total = datas.count()
         records_filtered = records_total
 
@@ -161,6 +163,8 @@ def log_general(request):
     model_selected = request.GET.get('model_name')
     year_selected = request.GET.get('year_selected')
     month_selected = request.GET.get('month_selected')
+    biller = request.GET.get('biller') or ''
+    nomor_bayar = request.GET.get('nomor_bayar') or ''
 
     print ('yearSel / monthSel = {}/{}'.format(year_selected, month_selected))
 
@@ -191,8 +195,10 @@ def log_general(request):
       # tahun sudah di-sort DESC. 
       # ambil year yang terbaru jika kosong atau tahun yang dipilih tidak tersedia di log
       if not year_selected or str(year_selected) not in available_years:
-        year_selected = available_years[0]
-        
+        year_selected = available_years[0]        
+    
+
+
     context = {
         'app':app_name,
         'model_selected': model_selected,
@@ -200,6 +206,8 @@ def log_general(request):
         'available_years': available_years,
         'month_selected': int(month_selected),
         'available_months': available_months,
+        'biller': biller,
+        'nomor_bayar': nomor_bayar,
     }
 
     # print('context')
@@ -223,6 +231,9 @@ def trx(request):
     year_selected = request.GET.get('year_selected')
     month_selected = request.GET.get('month_selected')
     print ('yearSel / monthSel = {}/{}'.format(year_selected, month_selected))
+
+    biller = request.GET.get('biller') or ''
+    nomor_bayar = request.GET.get('nomor_bayar') or ''
 
     available_years = []
     list_years = get_years_from_records(model_name)
@@ -256,6 +267,8 @@ def trx(request):
         'available_years': available_years,
         'month_selected': int(month_selected),
         'available_months': available_months,
+        'biller': biller,
+        'nomor_bayar': nomor_bayar,
     }
 
     html = "mainapp/"+model_name+"/index.html"

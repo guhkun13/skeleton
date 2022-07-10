@@ -43,6 +43,16 @@
               </select>
             </div>
             
+            <div class="col s12 m6 l4">
+              <label> Kode Biller </label>
+              <input type="text" name="biller" value={{biller}}>
+            </div>
+
+            <div class="col s12 m6 l4">
+              <label> Nomor Bayar </label>
+              <input type="text" name="nomor_bayar" value={{nomor_bayar}}>
+            </div>
+
             <div class="input-field col s12">
               <button class="btn waves-effect waves-light submit" type="submit" name="action">
                 Submit <i class="material-icons right">send</i>
@@ -119,7 +129,9 @@
         "data": {
           "csrfmiddlewaretoken": "{{ csrf_token }}",
           "year_selected": "{{year_selected}}",
-          "month_selected": "{{month_selected}}"
+          "month_selected": "{{month_selected}}",
+          "biller": "{{biller}}",
+          "nomor_bayar": "{{nomor_bayar}}"
         },
       },
       "columnDefs": [{

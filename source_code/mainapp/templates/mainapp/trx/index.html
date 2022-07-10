@@ -11,13 +11,13 @@
 
 {% block content %}
 <div class="section">
-  <div class="col s12 m10 l6">
+  <div class="col s12 m12">
     <div class="card card card-default scrollspy">
       <div class="card-content">
         <form action="{% url 'mainapp:trx' %}" method="GET">
           {% csrf_token %}
           <div class="row">            
-            <div class="col s12 m6 l6">
+            <div class="col s12 m6 l4">
               <label> Tahun </label>
               <select name="year_selected">
                 {% for year in available_years %}
@@ -33,6 +33,16 @@
                 <option value="{{ month.id }}" {% if month_selected == month.id %} selected {% endif %}> {{ month.name }}  </option>
                 {% endfor %}
               </select>
+            </div>
+
+            <div class="col s12 m6 l4">
+              <label> Kode Biller </label>
+              <input type="text" name="biller" value={{biller}}>
+            </div>
+
+            <div class="col s12 m6 l4">
+              <label> Nomor Bayar </label>
+              <input type="text" name="nomor_bayar" value={{nomor_bayar}}>
             </div>
 
             <div class="input-field col s12">
@@ -116,7 +126,9 @@
         "data": {
           "csrfmiddlewaretoken": "{{ csrf_token }}",
           "year_selected": "{{yearSelected}}",
-          "month_selected": "{{month_selected}}"
+          "month_selected": "{{month_selected}}",
+          "biller": "{{biller}}",
+          "nomor_bayar": "{{nomor_bayar}}"
         },
       },
       "columnDefs": [ {
