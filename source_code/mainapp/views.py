@@ -19,7 +19,6 @@ from django.views.generic import DetailView, View
 
 from .utils import *
 
-
 from mainapp.ajax_class.utils import *
 from django.core.serializers.json import DjangoJSONEncoder
 from skeleton.settings import root_url
@@ -320,7 +319,6 @@ def get_years_from_records(model_name):
   qs = qs.annotate(count_year=Count('year')).order_by('-year');
     
   return qs
-
 
 
 @login_required()

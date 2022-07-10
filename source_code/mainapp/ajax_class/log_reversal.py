@@ -34,16 +34,6 @@ class LogReversalClass:
         print ('filter by nomor_bayar ' + nomor_bayar)
         data = data.filter(nomor_pembayaran=nomor_bayar)
 
-      biller = kwargs.get('biller')
-      if biller :
-        print ('filter by biller ' + biller)
-        data = data.filter(kode_biller=biller)
-      
-      nomor_bayar = kwargs.get('nomor_bayar')
-      if nomor_bayar:
-        print ('filter by nomor_bayar ' + nomor_bayar)
-        data = data.filter(nomor_pembayaran=nomor_bayar)
-
       return data
 
     def filter_search(self, search):
