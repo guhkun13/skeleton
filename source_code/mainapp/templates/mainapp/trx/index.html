@@ -36,6 +36,16 @@
             </div>
 
             <div class="col s12 m6 l4">
+              <label> Tanggal </label>
+              <select name="day_selected">
+                <option value="all" {% if day_selected == 'all' %} selected {% endif %}> ALL </option>
+                {% for day in days %}
+                <option value="{{ day }}" {% if day_selected == day %} selected {% endif %}> {{ day }}  </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col s12 m6 l4">
               <label> Kode Biller </label>
               <input type="text" name="biller" value={{biller}}>
             </div>
@@ -127,6 +137,7 @@
           "csrfmiddlewaretoken": "{{ csrf_token }}",
           "year_selected": "{{yearSelected}}",
           "month_selected": "{{month_selected}}",
+          "day_selected": "{{day_selected}}",
           "biller": "{{biller}}",
           "nomor_bayar": "{{nomor_bayar}}"
         },

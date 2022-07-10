@@ -18,6 +18,11 @@ class LogPaymentClass:
       if month and int(month) > 0:
         data = data.filter(ts__month=month)
       
+      day = kwargs.get('day')
+      if day and int(day) > 0:
+        print ('filter by day ' + day)
+        data = data.filter(ts__day=day)
+
       biller = kwargs.get('biller')
       if biller :
         print ('filter by biller ' + biller)
