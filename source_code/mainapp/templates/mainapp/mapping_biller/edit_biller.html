@@ -22,13 +22,13 @@
     background-color: #ff9800;
     color: white;
   }
-
+  
   .msg-info{
     border-color: #0288d1;
     background-color: #29b6f6;
     color: white;
   }
-
+  
 </style>
 {% endblock %}
 
@@ -39,7 +39,7 @@
 {% block content %}
 
 <div class="col s12 m12 l12">
-
+  
   {% if messages %}
   <ul class="messages">
     {% for message in messages %}
@@ -47,81 +47,82 @@
     {% endfor %}
   </ul>
   {% endif %}
-
+  
 </div>
 
 <div class="card card card-default scrollspy">
   
   
   <div class="card-content">
-  <h5> Edit Biller : {{instance.nama_biller}}</h5> 
-  <hr/>
-  <form action="{% url 'mainapp:create_biller' %}" method="POST" class="form">
-    {% csrf_token %}
-    <div class="row">
-      <div class="col l6 s12">
-        <label> Kode (5 digit) </label>
-        <input name="kode" type="text" class="input-field" pattern=".{5}" required value="{{instance.kode_biller}}">
+    <h5> Edit Biller : <code> {{instance.nama_biller}} </code> </h5>
+    <br/>
+    <form action="{% url 'mainapp:create_biller' %}" method="POST" class="form">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col l6 s12">
+          <label> Kode (5 digit) </label>
+          <input name="kode_biller" type="text" class="input-field" pattern=".{5}" required value="{{instance.kode_biller}}">
+        </div>
+        <div class="col l6 s12">
+          <label> Nama </label>
+          <input name="nama_biller" type="text" class="input-field" required value="{{instance.nama_biller}}">
+        </div>
+        <div class="col l6 s12">
+          <label> Tipe Biller </label>
+          <select name="tipe_biller">
+            <option {% if instance.tipe_biller == 'P2H' %}  selected {% endif %} value="P2H"> P2H </option>
+            <option {% if instance.tipe_biller == 'H2H' %}  selected {% endif %} value="H2H"> H2H </option>
+          </select>
+        </div>
+        
+        <div class="col l6 s12">
+          <label> Tipe Bayar </label>
+          <select name="tipe_bayar">
+            <option value=""> </option>
+            <option {% if instance.tipe_bayar == 'open' %}  selected {% endif %} value="open"> Open Payment </option>
+            <option {% if instance.tipe_bayar == 'close' %}  selected {% endif %} value="close"> Close Payment </option>
+          </select>
+        </div>
+        
+        <div class="col l6 s12">
+          <label> URL Inquiry </label>
+          <input name="url_inquiry" type="url" class="input-field" value="{{instance.url_inquiry}}" placeholder='insert url'>
+        </div>
+        <div class="col l6 s12">
+          <label> URL Payment </label>
+          <input name="url_payment" type="url" class="input-field" value="{{instance.url_payment}}" placeholder='insert url'>
+        </div>
+        <div class="col l6 s12">
+          <label> URL Reversal </label>
+          <input name="url_reversal" type="url" class="input-field" value="{{instance.url_reversal}}" placeholder='insert url'>
+        </div>
+        
+        <div class="col l6 s12">
+          <label> Creator </label>
+          <input name="creator" type="text" class="input-field" required value="{{instance.creator}}" readonly>
+        </div>
+        
+        <div class="col l6 s12">
+          <label> Catatan </label>
+          <input name="catatan" type="text" class="input-field" value="{{instance.catatan}}">
+        </div>
+        <input type="hidden" name="update_biller" value="True">
+        <input type="hidden" name="prev_kode_biller" value="{{instance.kode_biller}}">
+        
+        <div class="input-field col s12">
+          <button class="btn waves-effect waves-light submit" type="submit" name="action">
+            Submit <i class="material-icons right">send</i>
+          </button>
+          
+          <a href="/mm/biller" class="btn red " type="button" name="action">
+            Cancel <i class="material-icons right">cancel</i>
+          </a>
+        </div>
       </div>
-      <div class="col l6 s12">
-        <label> Nama </label>
-        <input name="nama" type="text" class="input-field" required value="{{instance.nama_biller}}">
-      </div>
-      <div class="col l6 s12">
-        <label> Tipe Biller </label>
-        <select name="tipe_biller">
-          <option {% if instance.tipe_biller == 'P2H' %}  selected {% endif %} value="P2H"> P2H </option>
-          <option {% if instance.tipe_biller == 'H2H' %}  selected {% endif %} value="H2H"> H2H </option>
-        </select>
-      </div>
-
-      <div class="col l6 s12">
-        <label> Tipe Bayar </label>
-        <select name="tipe_bayar">
-          <option value=""> </option>
-          <option {% if instance.tipe_bayar == 'open' %}  selected {% endif %} value="open"> Open Payment </option>
-          <option {% if instance.tipe_bayar == 'close' %}  selected {% endif %} value="close"> Close Payment </option>
-        </select>
-      </div>
-
-      <div class="col l6 s12">
-        <label> URL Inquiry </label>
-        <input name="url_inquiry" type="url" class="input-field" value="{{instance.url_inquiry}}" placeholder='insert url'>
-      </div>
-      <div class="col l6 s12">
-        <label> URL Payment </label>
-        <input name="url_payment" type="url" class="input-field" value="{{instance.url_payment}}" placeholder='insert url'>
-      </div>
-      <div class="col l6 s12">
-        <label> URL Reversal </label>
-        <input name="url_reversal" type="url" class="input-field" value="{{instance.url_reversal}}" placeholder='insert url'>
-      </div>
-
-      <div class="col l6 s12">
-        <label> Creator </label>
-        <input name="creator" type="text" class="input-field" required value="{{instance.creator}}" readonly>
-      </div>
-
-      <div class="col l6 s12">
-        <label> Catatan </label>
-        <input name="catatan" type="text" class="input-field" value="{{instance.catatan}}">
-      </div>
-      <input type="hidden" name="update_biller" value="True">
-
-      <div class="input-field col s12">
-        <button class="btn waves-effect waves-light submit" type="submit" name="action">
-          Submit <i class="material-icons right">send</i>
-        </button>
-
-        <a href="/mm/biller" class="btn red " type="button" name="action">
-          Cancel <i class="material-icons right">cancel</i>
-        </a>
-      </div>
-    </div>
-  </form>
-  <!-- </div> -->
-  <!-- </div> -->
-</div>
+    </form>
+    <!-- </div> -->
+    <!-- </div> -->
+  </div>
 </div>
 </div>
 {% endblock %}
