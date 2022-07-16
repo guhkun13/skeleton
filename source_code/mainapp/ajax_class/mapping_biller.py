@@ -9,7 +9,7 @@ def isotime(param):
 class MappingBillerClass:
 
     def get_all_data(self, **kwargs):
-        return Mapping.objects.using('switching').all()
+        return Mapping.objects.using('switching').all().order_by('-created_at', '-updated_at')
 
     def filter_search(self, search):
         return Mapping.objects.using('switching').filter(

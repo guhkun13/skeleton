@@ -346,7 +346,6 @@ def biller(request):
 
 @login_required()
 def create_or_update_biller(request):
-
     if (request.POST):
         tipe_biller     = request.POST.get('tipe_biller')
         url_inquiry     = request.POST.get('url_inquiry')
@@ -361,11 +360,24 @@ def create_or_update_biller(request):
                 return HttpResponseRedirect(reverse('mainapp:biller'))
         if request.POST.get('update_biller'):
             # update existing biller
-            try:
+            prev_kode_biller = request.POST.get('prev_kode_biller')
+            new_kode_biller = request.POST.get('kode_biller')
 
-                billerExist = Mapping.objects.using('switching').get(kode_biller=request.POST.get('kode'))
-                billerExist.kode_biller     = request.POST.get('kode')
-                billerExist.nama_biller     = request.POST.get('nama')
+            kode_biller = prev_kode_biller
+            if new_kode_biller != prev_kode_biller :
+              kode_biller = new_kode_biller
+              try:
+                Mapping.objects.using('switching').filter(kode_biller=prev_kode_biller).update(kode_biller = new_kode_biller)
+              except Exception as e:                
+                  # raise e
+                  msg = str(e)
+                  messages.add_message(request, _ERROR, msg)                
+                  return HttpResponseRedirect(reverse('mainapp:biller'))
+
+            try:              
+                billerExist = Mapping.objects.using('switching').get(kode_biller=kode_biller)
+                billerExist.kode_biller     = request.POST.get('kode_biller')
+                billerExist.nama_biller     = request.POST.get('nama_biller')
                 billerExist.tipe_biller     = request.POST.get('tipe_biller')
                 billerExist.tipe_bayar      = request.POST.get('tipe_bayar')
                 billerExist.url_inquiry     = request.POST.get('url_inquiry')
@@ -376,15 +388,15 @@ def create_or_update_biller(request):
                 billerExist.save()
 
                 msg = "Existing biller:" + billerExist.kode_biller +"/" + billerExist.nama_biller +" has been updated! :D"
-                messages.add_message(request, _INFO, msg)
+                messages.add_message(request, _INFO, msg)                
                 return HttpResponseRedirect(reverse('mainapp:biller'))
             except Exception as e:
                 raise e
         else:
             try:
-                billerBaru = Mapping.objects.using('switching').create(
-                    kode_biller     = request.POST.get('kode'),
-                    nama_biller     = request.POST.get('nama'),
+                Mapping.objects.using('switching').create(
+                    kode_biller     = request.POST.get('kode_biller'),
+                    nama_biller     = request.POST.get('nama_biller'),
                     tipe_biller     = request.POST.get('tipe_biller'),
                     tipe_bayar      = request.POST.get('tipe_bayar'),
                     url_inquiry     = request.POST.get('url_inquiry'),
@@ -450,9 +462,6 @@ def edit_biller(request, pk):
     except Exception as e:
         raise e
 
-    return HttpResponseRedirect(reverse('mainapp:biller'))
-
-
 from csv import *
 import csv
 # guhkun
@@ -507,6 +516,5 @@ def upload_csv_biller(request):
 
     msg_berhasil = 'Success create ' + str(cnt_berhasil) + ' biller'
     messages.add_message(request, _INFO, msg_berhasil)
-
 
     return HttpResponseRedirect(reverse('mainapp:biller'))
