@@ -6,3 +6,4 @@ venv/
 static/
 media/
 source_code/mainapp/migrations/
+mydocs/
